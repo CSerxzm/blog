@@ -1,0 +1,10 @@
+.title{
+    font-size: 25px !important;
+}
+table,tr,td{
+    border: none !important;
+}
+
+span{
+    font-weight: bold;
+}
