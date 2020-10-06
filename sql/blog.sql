@@ -28,7 +28,7 @@ create table t_user(
   email varchar(255) default null comment "邮箱",
   usertype int(11) default null comment "类型,admin"
 );
-insert into t_user(id,username,password,nickname,avatar,create_time,email,usertype) values('1', 'admin', 'password', '向志敏', 'https://allpassaway.oss-cn-shenzhen.aliyuncs.com/images/allpassaway.jpg', '2020-09-30 15:35:17', '3052720966@', '1');
+insert into t_user(id,username,password,nickname,avatar,create_time,email,usertype) values('1', 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'CSerxzm', 'https://allpassaway.oss-cn-shenzhen.aliyuncs.com/images/allpassaway.jpg', '2020-09-30 15:35:17', '3052720966@', '1');
 
 drop table if exists t_blog;
 create table t_blog(

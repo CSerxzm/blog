@@ -35,6 +35,7 @@ public class RedisConfig{
     public RedisCacheManager blogCacheManager(RedisTemplate<Object, Blog> blogRedisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(blogRedisTemplate);
         cacheManager.setUsePrefix(true);
+        cacheManager.setDefaultExpiration(60);
         return cacheManager;
     }
 
@@ -53,6 +54,7 @@ public class RedisConfig{
     public RedisCacheManager tagCacheManager(RedisTemplate<Object, Tag> tagRedisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(tagRedisTemplate);
         cacheManager.setUsePrefix(true);
+        cacheManager.setDefaultExpiration(60);
         return cacheManager;
     }
 
@@ -71,6 +73,7 @@ public class RedisConfig{
     public RedisCacheManager typeCacheManager(RedisTemplate<Object, Type> typeRedisTemplate){
         RedisCacheManager cacheManager = new RedisCacheManager(typeRedisTemplate);
         cacheManager.setUsePrefix(true);
+        cacheManager.setDefaultExpiration(60);
         return cacheManager;
     }
 

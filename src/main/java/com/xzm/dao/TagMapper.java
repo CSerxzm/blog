@@ -27,4 +27,5 @@ public interface TagMapper {
     List<Integer> selectBlogIdByTagId(Integer id);
     List<Tag> selectTagByBlogId(Integer id);
     int saveBlogAndTag(@Param("blogId") int blogId,@Param("tagIds") List<Integer> tagIds);
+    int deleteTagByBlogId(Integer id);
 }

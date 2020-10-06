@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -30,7 +31,7 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private TagMapper tagMapper;
 
-    @Cacheable(value = "blog",key="#id")
+    @Cacheable(value="blog",key = "#id")
     @Override
     public Blog selectBlog(int id) {
         return blogMapper.selectByPrimaryKey(id);
@@ -41,7 +42,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog selectAndConvert(int id) {
         Blog blog = blogMapper.selectByPrimaryKey(id);
         if (blog == null) {
-            throw new NotFoundException("该博客不存在");
+            throw new NotFoundException("该blog不存在");
         }
         blog.setViews(blog.getViews()+1);
         blogMapper.updateByPrimaryKeySelective(blog);
@@ -108,17 +109,21 @@ public class BlogServiceImpl implements BlogService {
         return res;
     }
 
+    @CacheEvict(value="blog",key = "#id")
     @Transactional
     @Override
     public int updateBlog(int id, Blog blog) {
         Blog b = blogMapper.selectByPrimaryKey(id);
         if (b == null) {
-            throw new NotFoundException("该博客不存在");
+            throw new NotFoundException("该blog不存在");
         }
-        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
-        b.setUpdateTime(new Date());
+        blog.setUpdateTime(new Date());
 
-        return blogMapper.updateByPrimaryKey(b);
+        //对标签进行修改
+        tagMapper.deleteTagByBlogId(blog.getId());
+        tagMapper.saveBlogAndTag(blog.getId(),TagIdstoList(blog.getTagIds()));
+
+        return blogMapper.updateByPrimaryKeySelective(blog);
     }
 
     @Transactional
@@ -146,9 +151,6 @@ public class BlogServiceImpl implements BlogService {
     }
 
     public List<Blog> selectByTitleTypeandRecommend(String title,Integer type_id,Boolean recommend){
-        System.out.println("\ntitle="+title+"\n"
-                +"\ntype_id="+type_id+"\n"
-                +"\nrecommend="+recommend+"\n");
         Map<String,Object> query = new HashMap();
         query.put("title",title);
         query.put("type_id",type_id);
