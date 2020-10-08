@@ -119,6 +119,12 @@
             <scope>provided</scope>
         </dependency>
 
+		<!--发送邮件-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!--热部署工具-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

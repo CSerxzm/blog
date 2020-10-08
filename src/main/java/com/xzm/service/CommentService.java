@@ -13,4 +13,6 @@ public interface CommentService {
     List<Comment> selectAll( );
 
     int deleteByPrimaryKey(Integer id);
+
+    void sendtoAdmin(Comment comment);
 }

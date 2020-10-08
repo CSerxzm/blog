@@ -2,7 +2,6 @@ package com.xzm.controller;
 
 import com.xzm.bean.Comment;
 import com.xzm.bean.User;
-import com.xzm.service.BlogService;
 import com.xzm.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,9 +20,6 @@ public class CommentShowController {
     @Autowired
     private CommentService commentService;
 
-    @Autowired
-    private BlogService blogService;
-
     @Value("${comment.avatar}")
     private String avatar;
 
@@ -35,7 +31,7 @@ public class CommentShowController {
 
 
     @PostMapping("/comments")
-    public String post(Comment comment, HttpSession session) {
+    public String post(Comment comment, HttpSession session){
         System.out.println(comment);
         Integer blogId = comment.getBlogId();
         comment.setBlogId(blogId);
