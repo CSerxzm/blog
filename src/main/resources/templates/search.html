@@ -12,36 +12,8 @@
 
 <body>
 <!--导航-->
-<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
-  <div class="ui container">
-    <div class="ui inverted secondary stackable menu">
-      <div class="m-item item ">
-        <img src="../static/images/logo.png" th:src="@{/images/logo.png}" class="ui rounded image " alt=""
-             style="width: 50px;height: 50px">
-      </div>
-      <a href="#" th:href="@{/}" class="m-item item m-mobile-hide " th:classappend="${n==1} ? 'active'"><i
-              class="large home icon"></i>首页</a>
-      <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i
-              class="large idea icon"></i>分类</a>
-      <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i
-              class="large tags icon"></i>标签</a>
-      <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i
-              class="large clone icon"></i>归档</a>
-      <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i
-              class="large info icon"></i>关于我</a>
-      <div class="right m-item item m-mobile-hide">
-        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
-          <div class="ui icon inverted transparent input m-margin-tb-tiny">
-            <input type="text" name="query" placeholder="输入搜索标题……" th:value="${query}">
-            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <a href="#" class="ui menu toggle blue icon button m-right-top m-mobile-show">
-    <i class="sidebar icon"></i>
-  </a>
+<nav th:replace="_fragments :: menu(n=0)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
+
 </nav>
 
   <!--中间内容-->
@@ -121,47 +93,8 @@
   </div>
 
   <!--底部footer-->
-  <footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-big">
-    <div class="ui center aligned container">
-      <div class="ui inverted divided stackable grid">
-        <div class="three wide column">
-          <div class="ui inverted link list">
-            <div class="item">
-              <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" class="ui rounded image" alt=""
-                   style="width: 110px">
-            </div>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced m-opacity-mini">联系我</h4>
-          <div class="ui inverted link list">
-            <div class="item">
-              <i class="envelope outline icon"></i>
-              <div class="content">
-                <p>3052720966@qq.com</p>
-              </div>
-            </div>
-            <div class="item">
-              <i class="qq icon"></i>
-              <div class="content">
-                <p>3052720966</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced m-opacity-mini">备案号</h4>
-          <p class="m-text-thin m-text-spaced m-opacity-mini">蜀ICP备19035067号</p>
-        </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced m-opacity-mini">Blog</h4>
-          <p class="m-text-thin m-text-spaced m-opacity-mini">
-            这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
-        </div>
-      </div>
-      <div class="ui inverted section divider"></div>
-      <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2016 - <span th:text="${#dates.year(#dates.createNow())}">2020</span> Designed by CSerxzm</p>
-    </div>
+  <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-big">
+
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
