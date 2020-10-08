@@ -7,13 +7,15 @@ import java.util.Map;
 
 public interface BlogService {
 
-    Blog selectBlog(int id);
+    Blog selectBlog(Integer id);
 
-    Blog selectAndConvert(int id);
+    Blog selectAndConvert(Integer id);
 
     List<Blog> selectBlog();
 
-    List<Blog> selectRecommendBlogTop(int size);
+    List<Blog> selectBlogAdmin();
+
+    List<Blog> selectRecommendBlogTop(Integer size);
 
     List<Blog> selectHotBlogTop(Integer size);
 
@@ -23,11 +25,11 @@ public interface BlogService {
 
     int saveBlog(Blog blog);
 
-    int updateBlog(int id,Blog blog);
+    int updateBlog(Integer id,Blog blog);
 
-    void deleteBlog(int id);
+    int deleteBlog(Integer id);
 
-    List<Blog> selectBlogByTypeId(int id);
+    List<Blog> selectBlogByTypeId(Integer id);
 
     List<Blog> selectBlog(String ids);
 

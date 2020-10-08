@@ -33,7 +33,7 @@ public class BlogController {
     public String blogs(@RequestParam(value="page",defaultValue = "1") int pageIndex, Model model) {
         model.addAttribute("types", typeService.selectType());
         Page page = PageHelper.startPage(pageIndex, 10);
-        model.addAttribute("blogs", blogService.selectBlog());
+        model.addAttribute("blogs", blogService.selectBlogAdmin());
         model.addAttribute("page",page);
         return "admin/blogs";
     }
@@ -42,9 +42,6 @@ public class BlogController {
     public String search(@RequestParam(value="title",required=false) String title,
                          @RequestParam(value="type_id",required=false) Integer type_id,
                          @RequestParam(value="recommend",required=false) boolean recommend,Model model) {
-        System.out.println("\ntitle="+title+"\n"
-                +"\ntype_id="+type_id+"\n"
-                +"\nrecommend="+recommend+"\n");
         List<Blog> blogs = blogService.selectByTitleTypeandRecommend(title,type_id,recommend);
         model.addAttribute("blogs", blogs);
         return "admin/blogs :: blogList";

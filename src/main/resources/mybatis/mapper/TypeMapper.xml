@@ -65,11 +65,12 @@
   <!--List<Type> selectTypeTop(Integer size);-->
   <select id="selectTypeTop" resultMap="BaseResultMap">
     select t_type.id as id,name,count(*) as blog_num from t_blog,t_type
-where t_type.id=t_blog.type_id group by t_type.id order by blog_num desc limit #{size}
+where t_type.id=t_blog.type_id and published=true group by t_type.id order by blog_num desc limit #{size}
   </select>
 
   <!--Type selectTypeByName(String name);-->
   <select id="selectTypeByName" resultMap="BaseResultMap">
     select * from t_type where name= #{name}
   </select>
+
 </mapper>

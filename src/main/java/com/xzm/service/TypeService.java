@@ -8,16 +8,16 @@ public interface TypeService {
 
     int saveType(Type type);
 
-    Type selectType(int id);
+    Type selectType(Integer id);
 
     Type selectTypeByName(String name);
 
     List<Type> selectType();
 
-    List<Type> selectTypeTop(int size);
+    List<Type> selectTypeTop(Integer size);
 
-    int updateType(int id,Type type);
+    int updateType(Integer id,Type type);
 
-    int deleteType(int id);
+    int deleteType(Integer id);
 
 }

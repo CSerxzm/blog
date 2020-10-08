@@ -11,21 +11,21 @@ public interface TagService {
 
     int saveTag(Tag type);
 
-    Tag selectTag(int id);
+    Tag selectTag(Integer id);
 
     Tag selectTagByName(String name);
 
     List<Tag> selectTag();
 
-    List<Tag> selectTagTop(int size);
+    List<Tag> selectTagTop(Integer size);
 
-    int updateTag(int id, Tag type);
+    int updateTag(Integer id, Tag type);
 
-    int deleteTag(int id);
+    int deleteTag(Integer id);
 
-    List<Blog> selectBlogByTagId(int id);
+    List<Blog> selectBlogByTagId(Integer id);
 
-    List<Tag> selectTagByBlogId(int id);
+    List<Tag> selectTagByBlogId(Integer id);
 
     int saveBlogAndTag(int blogId,List<Integer> tagIds);
 }

@@ -32,8 +32,8 @@ public class IndexController {
         model.addAttribute("blogs",blogService.selectBlog());
         model.addAttribute("page",page);
         page=null;
-        model.addAttribute("types", typeService.selectTypeTop(6));
-        model.addAttribute("tags", tagService.selectTagTop(6));
+        model.addAttribute("types", typeService.selectTypeTop(8));
+        model.addAttribute("tags", tagService.selectTagTop(8));
         model.addAttribute("recommendBlogs", blogService.selectRecommendBlogTop(5));
         model.addAttribute("hotBlogs", blogService.selectHotBlogTop(5));
         return "index";

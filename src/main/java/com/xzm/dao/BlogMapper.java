@@ -12,8 +12,6 @@ public interface BlogMapper {
 
     int insert(Blog record);
 
-    int insertSelective(Blog record);
-
     Blog selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Blog record);
@@ -22,6 +20,7 @@ public interface BlogMapper {
 
     //新增方法
     List<Blog> selectAll();
+    List<Blog> selectAllAdmin();
     int count();
     List<Blog> selectRecommendBlogTop(Integer size);
     List<Blog> selectHotBlogTop(Integer size);
@@ -29,5 +28,6 @@ public interface BlogMapper {
     List<Blog> selectByYear(String year);
     List<Blog> selectByQuery(Map<String,Object> map);
     List<Blog> selectByTitlelike(String title);
+    List<Blog> selectBlogByTypeId(Integer id);
     List<Blog> selectByIds(@Param("ids") List<Integer> ids);
 }

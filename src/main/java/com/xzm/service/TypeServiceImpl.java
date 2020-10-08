@@ -25,7 +25,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Cacheable(value = "type",key="#id")
     @Override
-    public Type selectType(int id) {
+    public Type selectType(Integer id) {
         return typeMapper.selectByPrimaryKey(id);
     }
 
@@ -40,14 +40,14 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<Type> selectTypeTop(int size) {
+    public List<Type> selectTypeTop(Integer size) {
         return typeMapper.selectTypeTop(size);
     }
 
 
     @Transactional
     @Override
-    public int updateType(int id, Type type) {
+    public int updateType(Integer id, Type type) {
         Type t = typeMapper.selectByPrimaryKey(id);
         if (t == null) {
             throw new NotFoundException("不存在该类型");
@@ -57,7 +57,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Transactional
     @Override
-    public int deleteType(int id) {
+    public int deleteType(Integer id) {
         return typeMapper.deleteByPrimaryKey(id);
     }
 }

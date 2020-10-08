@@ -31,7 +31,7 @@ public class TagServiceImpl implements TagService {
 
     @Cacheable(value = "tag",key="#id")
     @Override
-    public Tag selectTag(int id) {
+    public Tag selectTag(Integer id) {
         return tagMapper.selectByPrimaryKey(id);
     }
 
@@ -46,7 +46,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> selectTagTop(int size) {
+    public List<Tag> selectTagTop(Integer size) {
         return tagMapper.selectTagTop(size);
     }
 
@@ -63,7 +63,7 @@ public class TagServiceImpl implements TagService {
 
     @Transactional
     @Override
-    public int updateTag(int id, Tag tag) {
+    public int updateTag(Integer id, Tag tag) {
         Tag t = tagMapper.selectByPrimaryKey(id);
         if (t == null) {
             throw new NotFoundException("不存在该标签");
@@ -73,19 +73,19 @@ public class TagServiceImpl implements TagService {
 
     @Transactional
     @Override
-    public int deleteTag(int id) {
+    public int deleteTag(Integer id) {
         return tagMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public List<Blog> selectBlogByTagId(int id){
+    public List<Blog> selectBlogByTagId(Integer id){
         List<Integer> blogIds = tagMapper.selectBlogIdByTagId(id);
         List<Blog> blogs = blogMapper.selectByIds(blogIds);
         return blogs;
     }
 
     @Override
-    public List<Tag> selectTagByBlogId(int id){
+    public List<Tag> selectTagByBlogId(Integer id){
         List<Tag> tags=tagMapper.selectTagByBlogId(id);
         return tags;
     }

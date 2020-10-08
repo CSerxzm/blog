@@ -33,13 +33,13 @@ public class BlogServiceImpl implements BlogService {
 
     @Cacheable(value="blog",key = "#id")
     @Override
-    public Blog selectBlog(int id) {
+    public Blog selectBlog(Integer id) {
         return blogMapper.selectByPrimaryKey(id);
     }
 
     @Transactional
     @Override
-    public Blog selectAndConvert(int id) {
+    public Blog selectAndConvert(Integer id) {
         Blog blog = blogMapper.selectByPrimaryKey(id);
         if (blog == null) {
             throw new NotFoundException("该blog不存在");
@@ -56,7 +56,12 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> selectRecommendBlogTop(int size) {
+    public List<Blog> selectBlogAdmin(){
+        return blogMapper.selectAllAdmin();
+    }
+
+    @Override
+    public List<Blog> selectRecommendBlogTop(Integer size) {
         return blogMapper.selectRecommendBlogTop(size);
     }
 
@@ -112,7 +117,7 @@ public class BlogServiceImpl implements BlogService {
     @CacheEvict(value="blog",key = "#id")
     @Transactional
     @Override
-    public int updateBlog(int id, Blog blog) {
+    public int updateBlog(Integer id, Blog blog) {
         Blog b = blogMapper.selectByPrimaryKey(id);
         if (b == null) {
             throw new NotFoundException("该blog不存在");
@@ -128,15 +133,16 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public void deleteBlog(int id) {
-        blogMapper.deleteByPrimaryKey(id);
+    public int deleteBlog(Integer id) {
+        return blogMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public List<Blog> selectBlogByTypeId(int id){
+    public List<Blog> selectBlogByTypeId(Integer id){
         Map<String,Object> query = new HashMap();
         query.put("type_id",id);
-        List<Blog> blogs = blogMapper.selectByQuery(query);
+        query.put("published",true);
+        List<Blog> blogs = blogMapper.selectBlogByTypeId(id);
         return blogs;
     }
 

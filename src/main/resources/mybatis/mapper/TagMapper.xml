@@ -78,8 +78,9 @@
 
   <!--List<Tag> selectTagTop(Integer size);-->
   <select id="selectTagTop" resultMap="BaseResultMap">
-      select tag_id as id,name,count(*) as blog_num from t_blog_tag,t_tag
-      where tag_id=id group by tag_id order by blog_num desc limit #{size}
+    select tag_id as id,name,count(*) as blog_num from
+    t_blog_tag,t_tag,(select * from t_blog where published=true) as t_blog
+    where tag_id=t_tag.id and t_blog.id=blog_id group by tag_id order by blog_num desc limit #{size}
   </select>
 
   <!--List<Integer> selectBlogIdByTagId(Integer id);-->

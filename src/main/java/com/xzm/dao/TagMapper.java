@@ -23,6 +23,7 @@ public interface TagMapper {
     List<Tag> selectAll();
     int count();
     List<Tag> selectTagTop(Integer size);
+
     //在blog_tag表进行操作
     List<Integer> selectBlogIdByTagId(Integer id);
     List<Tag> selectTagByBlogId(Integer id);

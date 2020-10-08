@@ -16,7 +16,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
     @Override
-    public List<Comment> selectCommentByBlogId(int blogId) {
+    public List<Comment> selectCommentByBlogId(Integer blogId) {
         List<Comment> comments = commentMapper.selectByBlogId(blogId);
         return comments;
     }
@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int saveComment(Comment comment) {
         comment.setCreateTime(new Date());
-        return commentMapper.insert(comment);
+        return commentMapper.insertSelective(comment);
     }
 
 }
