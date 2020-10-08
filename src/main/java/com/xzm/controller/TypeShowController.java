@@ -27,7 +27,7 @@ public class TypeShowController {
     @GetMapping("/types/{id}")
     public String types(@RequestParam(value="page",defaultValue = "1") int pageIndex, @PathVariable Integer id, Model model) {
         List<Type> types = typeService.selectTypeTop(10000);
-        if (id == -1) {
+        if ( ! types.isEmpty() && id == -1 ) {
            id = types.get(0).getId();
         }
         Page page = PageHelper.startPage(pageIndex, 5);

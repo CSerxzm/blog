@@ -133,4 +133,10 @@
     from t_comment
     where blog_id = #{id,jdbcType=INTEGER}
   </select>
+  <!--List<Comment> selectAll();-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_comment
+  </select>
 </mapper>

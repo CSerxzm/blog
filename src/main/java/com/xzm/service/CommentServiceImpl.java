@@ -28,4 +28,13 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.insertSelective(comment);
     }
 
+    @Override
+    public List<Comment> selectAll( ){
+        return commentMapper.selectAll();
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return commentMapper.deleteByPrimaryKey(id);
+    }
 }

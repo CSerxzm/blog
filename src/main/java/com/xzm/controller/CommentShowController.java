@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-public class CommentController {
+public class CommentShowController {
 
     @Autowired
     private CommentService commentService;

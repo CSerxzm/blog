@@ -9,4 +9,8 @@ public interface CommentService {
     List<Comment> selectCommentByBlogId(Integer blogId);
 
     int saveComment(Comment comment);
+
+    List<Comment> selectAll( );
+
+    int deleteByPrimaryKey(Integer id);
 }

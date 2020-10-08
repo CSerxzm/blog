@@ -27,7 +27,7 @@ public class TagShowController {
     @GetMapping("/tags/{id}")
     public String tags(@RequestParam(value="page",defaultValue = "1") int pageIndex, @PathVariable Integer id, Model model) {
         List<Tag> tags = tagService.selectTagTop(10000);
-        if (id == -1) {
+        if (! tags.isEmpty() && id == -1 ) {
            id = tags.get(0).getId();
         }
         model.addAttribute("tags", tags);

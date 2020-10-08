@@ -175,3 +175,7 @@ body {
 td{
     white-space:nowrap
 }
+
+.content_container{
+    min-height: 500px !important;
+}
