@@ -60,7 +60,9 @@ public class TagServiceImpl implements TagService {
         List<Tag> tags;
         if(redisUtils.isEmpty(tagRedisTemplate, BlogConstant.TAGTOP)){
             tags=tagMapper.selectTagTop(size);
-            redisUtils.setValueList(tagRedisTemplate,BlogConstant.TAGTOP,tags);
+            if(!tags.isEmpty()){
+                redisUtils.setValueList(tagRedisTemplate,BlogConstant.TAGTOP,tags);
+            }
         }else{
             tags=redisUtils.getValueList(tagRedisTemplate,BlogConstant.TAGTOP);
         }

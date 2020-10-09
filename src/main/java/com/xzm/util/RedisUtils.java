@@ -20,7 +20,6 @@ public class RedisUtils<T> {
     }
 
     public boolean isEmpty(RedisTemplate redisTemplate,String key){
-        //源码问题
         Boolean result = redisTemplate.hasKey(key);
         if(result==null)
             result=false;

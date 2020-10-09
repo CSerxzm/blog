@@ -83,7 +83,9 @@ public class BlogServiceImpl implements BlogService {
         List<Blog> blogs;
         if(redisUtils.isEmpty(blogRedisTemplate,BlogConstant.RECOMMENDBLOGS)){
             blogs=blogMapper.selectRecommendBlogTop(size);
-            redisUtils.setValueList(blogRedisTemplate,BlogConstant.RECOMMENDBLOGS,blogs);
+            if(!blogs.isEmpty()){
+                redisUtils.setValueList(blogRedisTemplate,BlogConstant.RECOMMENDBLOGS,blogs);
+            }
         }else{
             blogs = redisUtils.getValueList(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS);
         }
@@ -95,7 +97,9 @@ public class BlogServiceImpl implements BlogService {
         List<Blog> blogs;
         if(redisUtils.isEmpty(blogRedisTemplate,BlogConstant.HOTBLOGS)){
             blogs=blogMapper.selectHotBlogTop(size);
-            redisUtils.setValueList(blogRedisTemplate,BlogConstant.HOTBLOGS,blogs);
+            if(!blogs.isEmpty()){
+                redisUtils.setValueList(blogRedisTemplate,BlogConstant.HOTBLOGS,blogs);
+            }
         }else{
             blogs = redisUtils.getValueList(blogRedisTemplate, BlogConstant.HOTBLOGS);
         }

@@ -34,8 +34,10 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> selectCommentByBlogId(Integer blogId) {
         List<Comment> comments;
         if(redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS+blogId)){
-            comments=commentMapper.selectByBlogId(blogId);;
-            redisUtils.setValueList(commentRedisTemplate,BlogConstant.COMMENTS+blogId,comments);
+            comments=commentMapper.selectByBlogId(blogId);
+            if(!comments.isEmpty()){
+                redisUtils.setValueList(commentRedisTemplate,BlogConstant.COMMENTS+blogId,comments);
+            }
         }else{
             comments = redisUtils.getValueList(commentRedisTemplate, BlogConstant.COMMENTS+blogId);
         }
@@ -45,9 +47,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public int saveComment(Comment comment){
-        if(! redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS+comment.getBlogId())){
-            redisUtils.removeValue(commentRedisTemplate,BlogConstant.COMMENTS+comment.getBlogId());
-        }
+        redisUtils.removeValue(commentRedisTemplate,BlogConstant.COMMENTS+comment.getBlogId());
         comment.setCreateTime(new Date());
         return commentMapper.insertSelective(comment);
     }
@@ -66,9 +66,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        if(! redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS)){
-            redisUtils.removeValue(commentRedisTemplate,BlogConstant.COMMENTS);
-        }
+        redisUtils.removeValue(commentRedisTemplate,BlogConstant.COMMENTS);
         return commentMapper.deleteByPrimaryKey(id);
     }
 }

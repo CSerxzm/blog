@@ -53,7 +53,9 @@ public class TypeServiceImpl implements TypeService {
         List<Type> types;
         if(redisUtils.isEmpty(typeRedisTemplate, BlogConstant.TYPETOP)){
             types=typeMapper.selectTypeTop(size);
-            redisUtils.setValueList(typeRedisTemplate,BlogConstant.TYPETOP,types);
+            if(!types.isEmpty()){
+                redisUtils.setValueList(typeRedisTemplate,BlogConstant.TYPETOP,types);
+            }
         }else{
             types=redisUtils.getValueList(typeRedisTemplate,BlogConstant.TYPETOP);
         }
