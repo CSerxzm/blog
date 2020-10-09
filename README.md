@@ -23,4 +23,5 @@
 [没有代码的程序](https://fuyuanplant.cn)
 
 **什么？上面没有支付宝，我信了，那么微信喃？**
+
 <img src="./src/main/resources/static/images/wepay.png" style="width:150px">
