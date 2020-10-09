@@ -30,4 +30,5 @@ public interface BlogMapper {
     List<Blog> selectByTitlelike(String title);
     List<Blog> selectBlogByTypeId(Integer id);
     List<Blog> selectByIds(@Param("ids") List<Integer> ids);
+    int addBlogViews(Integer id);
 }

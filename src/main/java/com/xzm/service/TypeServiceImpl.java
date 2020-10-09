@@ -3,12 +3,15 @@ package com.xzm.service;
 import com.xzm.NotFoundException;
 import com.xzm.bean.Type;
 import com.xzm.dao.TypeMapper;
-import org.springframework.beans.BeanUtils;
+import com.xzm.util.BlogConstant;
+import com.xzm.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -16,6 +19,12 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeMapper typeMapper;
+
+    @Resource(name="typeRedisTemplate")
+    private RedisTemplate typeRedisTemplate;
+
+    @Autowired
+    private RedisUtils<Type> redisUtils;
 
     @Transactional
     @Override
@@ -41,7 +50,14 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public List<Type> selectTypeTop(Integer size) {
-        return typeMapper.selectTypeTop(size);
+        List<Type> types;
+        if(redisUtils.isEmpty(typeRedisTemplate, BlogConstant.TYPETOP)){
+            types=typeMapper.selectTypeTop(size);
+            redisUtils.setValueList(typeRedisTemplate,BlogConstant.TYPETOP,types);
+        }else{
+            types=redisUtils.getValueList(typeRedisTemplate,BlogConstant.TYPETOP);
+        }
+        return types;
     }
 
 

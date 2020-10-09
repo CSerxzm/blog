@@ -5,12 +5,15 @@ import com.xzm.bean.Blog;
 import com.xzm.bean.Tag;
 import com.xzm.dao.BlogMapper;
 import com.xzm.dao.TagMapper;
-import org.springframework.beans.BeanUtils;
+import com.xzm.util.BlogConstant;
+import com.xzm.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,12 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     private BlogMapper blogMapper;
+
+    @Resource(name="tagRedisTemplate")
+    private RedisTemplate tagRedisTemplate;
+
+    @Autowired
+    private RedisUtils<Tag> redisUtils;
 
     @Transactional
     @Override
@@ -35,6 +44,7 @@ public class TagServiceImpl implements TagService {
         return tagMapper.selectByPrimaryKey(id);
     }
 
+    @Cacheable(value = "tag",key="#name")
     @Override
     public Tag selectTagByName(String name) {
         return tagMapper.selectTagByName(name);
@@ -47,7 +57,14 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> selectTagTop(Integer size) {
-        return tagMapper.selectTagTop(size);
+        List<Tag> tags;
+        if(redisUtils.isEmpty(tagRedisTemplate, BlogConstant.TAGTOP)){
+            tags=tagMapper.selectTagTop(size);
+            redisUtils.setValueList(tagRedisTemplate,BlogConstant.TAGTOP,tags);
+        }else{
+            tags=redisUtils.getValueList(tagRedisTemplate,BlogConstant.TAGTOP);
+        }
+        return tags;
     }
 
     private List<Integer> convertToList(String ids) {

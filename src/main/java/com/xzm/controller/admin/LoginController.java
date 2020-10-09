@@ -2,6 +2,7 @@ package com.xzm.controller.admin;
 
 import com.xzm.bean.User;
 import com.xzm.service.UserService;
+import com.xzm.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,17 +35,17 @@ public class LoginController {
         User user = userService.checkUser(username, password);
         if (user != null) {
             user.setPassword(null);
-            session.setAttribute("user",user);
+            session.setAttribute(BlogConstant.USER,user);
             return "admin/index";
         } else {
-            attributes.addFlashAttribute("message", "用户名和密码错误");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "用户名和密码错误");
             return "redirect:/admin";
         }
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("user");
+        session.removeAttribute(BlogConstant.USER);
         return "redirect:/admin";
     }
 }

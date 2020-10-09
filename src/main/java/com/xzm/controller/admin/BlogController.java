@@ -8,6 +8,7 @@ import com.xzm.bean.User;
 import com.xzm.service.BlogService;
 import com.xzm.service.TagService;
 import com.xzm.service.TypeService;
+import com.xzm.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +32,10 @@ public class BlogController {
 
     @GetMapping("/blogs")
     public String blogs(@RequestParam(value="page",defaultValue = "1") int pageIndex, Model model) {
-        model.addAttribute("types", typeService.selectType());
-        Page page = PageHelper.startPage(pageIndex, 10);
-        model.addAttribute("blogs", blogService.selectBlogAdmin());
-        model.addAttribute("page",page);
+        model.addAttribute(BlogConstant.TYPES, typeService.selectType());
+        Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZEADMIN);
+        model.addAttribute(BlogConstant.BLOGS, blogService.selectBlogAdmin());
+        model.addAttribute(BlogConstant.PAGE,page);
         return "admin/blogs";
     }
 
@@ -43,27 +44,27 @@ public class BlogController {
                          @RequestParam(value="type_id",required=false) Integer type_id,
                          @RequestParam(value="recommend",required=false) boolean recommend,Model model) {
         List<Blog> blogs = blogService.selectByTitleTypeandRecommend(title,type_id,recommend);
-        model.addAttribute("blogs", blogs);
+        model.addAttribute(BlogConstant.BLOGS, blogs);
         return "admin/blogs :: blogList";
     }
 
 
     @GetMapping("/blogs/input")
     public String input(Model model) {
-        model.addAttribute("types", typeService.selectType());
-        model.addAttribute("tags", tagService.selectTag());
-        model.addAttribute("blog", new Blog());
+        model.addAttribute(BlogConstant.TYPES, typeService.selectType());
+        model.addAttribute(BlogConstant.TAGS, tagService.selectTag());
+        model.addAttribute(BlogConstant.ONEBLOG, new Blog());
         return "admin/blogs-input";
     }
 
     @GetMapping("/blogs/{id}/input")
     public String editInput(@PathVariable int id, Model model) {
-        model.addAttribute("types", typeService.selectType());
-        model.addAttribute("tags", tagService.selectTag());
+        model.addAttribute(BlogConstant.TYPES, typeService.selectType());
+        model.addAttribute(BlogConstant.TAGS, tagService.selectTag());
         Blog blog = blogService.selectBlog(id);
         List<Tag> tags = tagService.selectTagByBlogId(blog.getId());
         blog.setTagIds(tagsToIds(tags));
-        model.addAttribute("blog",blog);
+        model.addAttribute(BlogConstant.ONEBLOG,blog);
         return "admin/blogs-input";
     }
 
@@ -91,16 +92,16 @@ public class BlogController {
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
         int b;
         if (blog.getId() == null) {
-            User user =(User) session.getAttribute("user");
+            User user =(User) session.getAttribute(BlogConstant.USER);
             blog.setUser(user);
             b = blogService.saveBlog(blog);
         } else {
             b = blogService.updateBlog(blog.getId(), blog);
         }
         if (b == 0) {
-            attributes.addFlashAttribute("message", "操作失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "操作失败");
         } else {
-            attributes.addFlashAttribute("message", "操作成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "操作成功");
         }
         return "redirect:/admin/blogs";
     }
@@ -109,7 +110,7 @@ public class BlogController {
     @GetMapping("/blogs/{id}/delete")
     public String delete(@PathVariable Integer id,RedirectAttributes attributes) {
         blogService.deleteBlog(id);
-        attributes.addFlashAttribute("message", "删除成功");
+        attributes.addFlashAttribute(BlogConstant.MESSAGE, "删除成功");
         return "redirect:/admin/blogs";
     }
 

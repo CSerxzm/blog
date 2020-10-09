@@ -14,5 +14,4 @@ public interface CommentService {
 
     int deleteByPrimaryKey(Integer id);
 
-    void sendtoAdmin(Comment comment);
 }

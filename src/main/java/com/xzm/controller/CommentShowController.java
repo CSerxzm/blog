@@ -3,6 +3,8 @@ package com.xzm.controller;
 import com.xzm.bean.Comment;
 import com.xzm.bean.User;
 import com.xzm.service.CommentService;
+import com.xzm.service.EmailService;
+import com.xzm.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,12 +22,15 @@ public class CommentShowController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private EmailService emailService;
+
     @Value("${comment.avatar}")
     private String avatar;
 
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Integer blogId, Model model) {
-        model.addAttribute("comments", commentService.selectCommentByBlogId(blogId));
+        model.addAttribute(BlogConstant.COMMENTS, commentService.selectCommentByBlogId(blogId));
         return "blog :: commentList";
     }
 
@@ -44,6 +49,7 @@ public class CommentShowController {
             comment.setAdminComment(false);
         }
         commentService.saveComment(comment);
+        emailService.sendtoAdmin(comment);
         return "redirect:/comments/" + blogId;
     }
 

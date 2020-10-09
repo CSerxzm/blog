@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.xzm.bean.Tag;
 import com.xzm.service.BlogService;
 import com.xzm.service.TagService;
+import com.xzm.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,15 +27,15 @@ public class TagShowController {
 
     @GetMapping("/tags/{id}")
     public String tags(@RequestParam(value="page",defaultValue = "1") int pageIndex, @PathVariable Integer id, Model model) {
-        List<Tag> tags = tagService.selectTagTop(10000);
+        List<Tag> tags = tagService.selectTagTop(BlogConstant.SIZEALL);
         if (! tags.isEmpty() && id == -1 ) {
            id = tags.get(0).getId();
         }
-        model.addAttribute("tags", tags);
-        Page page = PageHelper.startPage(pageIndex, 5);
-        model.addAttribute("blogs", tagService.selectBlogByTagId(id));
-        model.addAttribute("page",page);
-        model.addAttribute("activeTagId", id);
+        model.addAttribute(BlogConstant.TAGS, tags);
+        Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZE);
+        model.addAttribute(BlogConstant.BLOGS, tagService.selectBlogByTagId(id));
+        model.addAttribute(BlogConstant.PAGE,page);
+        model.addAttribute(BlogConstant.ACTIVETAGID, id);
         return "tags";
     }
 }

@@ -2,9 +2,11 @@ package com.xzm.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xzm.bean.Blog;
 import com.xzm.service.BlogService;
 import com.xzm.service.TagService;
 import com.xzm.service.TypeService;
+import com.xzm.util.BlogConstant;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,35 +30,35 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@RequestParam(value="page",defaultValue = "1") int pageIndex,Model model) {
-        Page page = PageHelper.startPage(pageIndex, 5);
-        model.addAttribute("blogs",blogService.selectBlog());
-        model.addAttribute("page",page);
+        Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZE);
+        model.addAttribute(BlogConstant.BLOGS,blogService.selectBlog());
+        model.addAttribute(BlogConstant.PAGE,page);
         page=null;
-        model.addAttribute("types", typeService.selectTypeTop(8));
-        model.addAttribute("tags", tagService.selectTagTop(8));
-        model.addAttribute("recommendBlogs", blogService.selectRecommendBlogTop(5));
-        model.addAttribute("hotBlogs", blogService.selectHotBlogTop(5));
+        model.addAttribute(BlogConstant.TYPES, typeService.selectTypeTop(BlogConstant.SIZETOP));
+        model.addAttribute(BlogConstant.TAGS, tagService.selectTagTop(BlogConstant.SIZETOP));
+        model.addAttribute(BlogConstant.RECOMMENDBLOGS, blogService.selectRecommendBlogTop(BlogConstant.BLOGTOP));
+        model.addAttribute(BlogConstant.HOTBLOGS, blogService.selectHotBlogTop(BlogConstant.BLOGTOP));
         return "index";
     }
 
 
     @RequestMapping("/search")
     public String search(@RequestParam(value="page",defaultValue = "1") int pageIndex, @Param("query") String query, Model model, HttpSession session) {
-        Page page = PageHelper.startPage(pageIndex,5);
+        Page page = PageHelper.startPage(pageIndex,BlogConstant.PAGESIZE);
         if(query==null){
             query = (String) session.getAttribute("query");
         }else{
             session.setAttribute("query",query);
         }
-        model.addAttribute("blogs", blogService.selectByTitlelike(query));
-        model.addAttribute("page", page);
+        model.addAttribute(BlogConstant.BLOGS, blogService.selectByTitlelike(query));
+        model.addAttribute(BlogConstant.PAGE, page);
         return "search";
     }
 
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Integer id,Model model) {
-        model.addAttribute("blog", blogService.selectAndConvert(id));
-        model.addAttribute("tags",tagService.selectTagByBlogId(id));
+        model.addAttribute(BlogConstant.ONEBLOG, blogService.selectAndConvert(id));
+        model.addAttribute(BlogConstant.TAGS,tagService.selectTagByBlogId(id));
         return "blog";
     }
 

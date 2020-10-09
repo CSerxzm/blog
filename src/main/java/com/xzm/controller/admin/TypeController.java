@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xzm.bean.Type;
 import com.xzm.service.TypeService;
+import com.xzm.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,21 +25,21 @@ public class TypeController {
 
     @GetMapping("/types")
     public String types(@RequestParam(value="page",defaultValue = "1") int pageIndex, Model model) {
-        Page page = PageHelper.startPage(pageIndex,10);
-        model.addAttribute("types",typeService.selectType());
-        model.addAttribute("page",page);
+        Page page = PageHelper.startPage(pageIndex,BlogConstant.PAGESIZEADMIN);
+        model.addAttribute(BlogConstant.TYPES,typeService.selectType());
+        model.addAttribute(BlogConstant.PAGE,page);
         return "admin/types";
     }
 
     @GetMapping("/types/input")
     public String input(Model model) {
-        model.addAttribute("type", new Type());
+        model.addAttribute(BlogConstant.ONETYPE, new Type());
         return "admin/types-input";
     }
 
     @GetMapping("/types/{id}/input")
     public String editInput(@PathVariable Integer id, Model model) {
-        model.addAttribute("type", typeService.selectType(id));
+        model.addAttribute(BlogConstant.ONETYPE, typeService.selectType(id));
         return "admin/types-input";
     }
 
@@ -54,9 +55,9 @@ public class TypeController {
         }
         int res = typeService.saveType(type);
         if (res==0) {
-            attributes.addFlashAttribute("message", "新增失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "新增失败");
         } else {
-            attributes.addFlashAttribute("message", "新增成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "新增成功");
         }
         return "redirect:/admin/types";
     }
@@ -73,9 +74,9 @@ public class TypeController {
         }
         int res = typeService.updateType(id,type);
         if (res==0) {
-            attributes.addFlashAttribute("message", "更新失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "更新失败");
         } else {
-            attributes.addFlashAttribute("message", "更新成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "更新成功");
         }
         return "redirect:/admin/types";
     }
@@ -84,9 +85,9 @@ public class TypeController {
     public String delete(@PathVariable Integer id,RedirectAttributes attributes) {
         int res = typeService.deleteType(id);
         if(res>0){
-            attributes.addFlashAttribute("message", "删除成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "删除成功");
         }else{
-            attributes.addFlashAttribute("message", "删除失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "删除失败");
         }
         return "redirect:/admin/types";
     }

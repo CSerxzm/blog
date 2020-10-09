@@ -143,7 +143,7 @@
     </select>
     <!--int count();-->
     <select id="count" resultType="integer">
-    select count( * ) from t_blog where published=true
+    select count(*) from t_blog where published=true
     </select>
     <!--public List<Blog> selectRecommendBlogTop(Integer size)-->
     <select id="selectRecommendBlogTop" resultMap="BaseResultMap">
@@ -213,4 +213,8 @@
             #{item_id}
         </foreach>
     </select>
+    <!--int addBlogViews(Integer id);-->
+    <update id="addBlogViews">
+        update t_blog set views = views+1 where id = #{id}
+    </update>
 </mapper>

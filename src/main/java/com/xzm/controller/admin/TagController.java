@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xzm.bean.Tag;
 import com.xzm.service.TagService;
+import com.xzm.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,21 +25,21 @@ public class TagController {
 
     @GetMapping("/tags")
     public String tags(@RequestParam(value="page",defaultValue = "1") int pageIndex,Model model) {
-        Page page = PageHelper.startPage(pageIndex,10);
-        model.addAttribute("tags",tagService.selectTag());
-        model.addAttribute("page",page);
+        Page page = PageHelper.startPage(pageIndex,BlogConstant.PAGESIZEADMIN);
+        model.addAttribute(BlogConstant.TAGS,tagService.selectTag());
+        model.addAttribute(BlogConstant.PAGE,page);
         return "admin/tags";
     }
 
     @GetMapping("/tags/input")
     public String input(Model model) {
-        model.addAttribute("tag", new Tag());
+        model.addAttribute(BlogConstant.ONETAG, new Tag());
         return "admin/tags-input";
     }
 
     @GetMapping("/tags/{id}/input")
     public String editInput(@PathVariable Integer id, Model model) {
-        model.addAttribute("tag", tagService.selectTag(id));
+        model.addAttribute(BlogConstant.ONETAG, tagService.selectTag(id));
         return "admin/tags-input";
     }
 
@@ -54,9 +55,9 @@ public class TagController {
         }
         int res = tagService.saveTag(tag);
         if (res == 0 ) {
-            attributes.addFlashAttribute("message", "新增失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "新增失败");
         } else {
-            attributes.addFlashAttribute("message", "新增成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "新增成功");
         }
         return "redirect:/admin/tags";
     }
@@ -73,9 +74,9 @@ public class TagController {
         }
         int res = tagService.updateTag(id,tag);
         if ( res == 0 ) {
-            attributes.addFlashAttribute("message", "更新失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "更新失败");
         } else {
-            attributes.addFlashAttribute("message", "更新成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "更新成功");
         }
         return "redirect:/admin/tags";
     }
@@ -84,9 +85,9 @@ public class TagController {
     public String delete(@PathVariable Integer id,RedirectAttributes attributes) {
         int res = tagService.deleteTag(id);
         if(res>0){
-            attributes.addFlashAttribute("message", "删除成功");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "删除成功");
         }else{
-            attributes.addFlashAttribute("message", "删除失败");
+            attributes.addFlashAttribute(BlogConstant.MESSAGE, "删除失败");
         }
         return "redirect:/admin/tags";
     }
