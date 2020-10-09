@@ -15,11 +15,11 @@
 * 评论的管理，以及评论发送到邮件
 * blog的赞赏（扫描支付宝，微信转账，喜欢的可以转个三元五元，支持服务器的运行）   
 **在线乞讨(支付宝扫码哦)**
-![支付宝](./src/main/resources/static/images/alipay.png)
+![支付宝](./src/main/resources/static/images/alipay.png =100*100)
 
 * 文章的分类浏览，分标签，归档。
 ## 演示地址
 [没有代码的程序](https://fuyuanplant.cn)
 
 **什么？上面没有支付宝，我信了，那么微信喃？**
-![支付宝](./src/main/resources/static/images/wepay.png)
+![支付宝](./src/main/resources/static/images/wepay.png =100*100)
