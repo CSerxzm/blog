@@ -25,7 +25,6 @@ public class RedisConfig{
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<Blog> ser = new Jackson2JsonRedisSerializer<Blog>(Blog.class);
         template.setDefaultSerializer(ser);
-        template.setEnableTransactionSupport(true);
         return template;
     }
 
@@ -46,7 +45,6 @@ public class RedisConfig{
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<Tag> ser = new Jackson2JsonRedisSerializer<Tag>(Tag.class);
         template.setDefaultSerializer(ser);
-        template.setEnableTransactionSupport(true);
         return template;
     }
 
@@ -66,7 +64,6 @@ public class RedisConfig{
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<Type> ser = new Jackson2JsonRedisSerializer<Type>(Type.class);
         template.setDefaultSerializer(ser);
-        template.setEnableTransactionSupport(true);
         return template;
     }
 
@@ -86,7 +83,6 @@ public class RedisConfig{
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<Comment> ser = new Jackson2JsonRedisSerializer<Comment>(Comment.class);
         template.setDefaultSerializer(ser);
-        template.setEnableTransactionSupport(true);
         return template;
     }
 
@@ -106,7 +102,6 @@ public class RedisConfig{
         template.setConnectionFactory(redisConnectionFactory);
         Jackson2JsonRedisSerializer<Integer> ser = new Jackson2JsonRedisSerializer<Integer>(Integer.class);
         template.setDefaultSerializer(ser);
-        template.setEnableTransactionSupport(true);
         return template;
     }
 
