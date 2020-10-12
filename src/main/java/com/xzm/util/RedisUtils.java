@@ -21,8 +21,6 @@ public class RedisUtils<T> {
 
     public boolean isEmpty(RedisTemplate redisTemplate,String key){
         Boolean result = redisTemplate.hasKey(key);
-        if(result==null)
-            result=false;
         return  ! result;
     }
 

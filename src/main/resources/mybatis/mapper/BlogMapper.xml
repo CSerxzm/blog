@@ -133,13 +133,13 @@
     <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_blog where published=true order by update_time desc
+    from t_blog where published=true order by create_time desc
     </select>
     <!--List<Blog> selectAllAdmin();-->
     <select id="selectAllAdmin" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_blog order by update_time desc
+    from t_blog order by create_time desc
     </select>
     <!--int count();-->
     <select id="count" resultType="integer">
@@ -149,23 +149,23 @@
     <select id="selectRecommendBlogTop" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_blog where published=true and recommend = true order by update_time desc limit #{size}
+    from t_blog where published=true and recommend = true order by create_time desc limit #{size}
     </select>
     <!--public List<Blog> selectHotBlogTop(Integer size)-->
     <select id="selectHotBlogTop" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_blog where published=true order by views desc,update_time desc limit #{size}
+    from t_blog where published=true order by views desc,create_time desc limit #{size}
     </select>
     <!--List<String> findGroupYear();-->
     <select id="selectGroupYear" resultType="string">
-    select DISTINCT(YEAR(update_time)) as year from t_blog order by year desc
+    select DISTINCT(YEAR(create_time)) as year from t_blog order by year desc
     </select>
     <!--List<Blog> findByYear(String year);-->
     <select id="selectByYear" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_blog where  published=true and YEAR(update_time)=#{year} order by update_time desc
+    from t_blog where  published=true and YEAR(create_time)=#{year} order by create_time desc
     </select>
     <!--    List<Blog> selectByQuery(Map<String,Object> map);-->
     <select id="selectByQuery" resultMap="BaseResultMap">
