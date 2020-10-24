@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xzm.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.xzm.bean.User">
+<mapper namespace="com.xzm.blog.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xzm.blog.bean.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -24,7 +24,7 @@
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.xzm.bean.User">
+  <insert id="insert" parameterType="com.xzm.blog.bean.User">
     insert into t_user (id, username, password, 
       nickname, avatar, create_time, 
       email, usertype)
@@ -32,7 +32,7 @@
       #{nickname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{email,jdbcType=VARCHAR}, #{usertype,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.xzm.bean.User">
+  <insert id="insertSelective" parameterType="com.xzm.blog.bean.User">
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xzm.bean.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzm.blog.bean.User">
     update t_user
     <set>
       <if test="username != null">
@@ -114,7 +114,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xzm.bean.User">
+  <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.User">
     update t_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xzm.dao.BlogMapper">
-    <resultMap id="BaseResultMap" type="com.xzm.bean.Blog">
+<mapper namespace="com.xzm.blog.dao.BlogMapper">
+    <resultMap id="BaseResultMap" type="com.xzm.blog.bean.Blog">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -16,15 +16,15 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="views" jdbcType="INTEGER" property="views" />
     <association property="user"
-                 select="com.xzm.dao.UserMapper.selectByPrimaryKey"
+                 select="com.xzm.blog.dao.UserMapper.selectByPrimaryKey"
                  column="user_id">
     </association>
     <association property="type"
-                 select="com.xzm.dao.TypeMapper.selectByPrimaryKey"
+                 select="com.xzm.blog.dao.TypeMapper.selectByPrimaryKey"
                  column="type_id">
     </association>
     </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xzm.bean.Blog">
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xzm.blog.bean.Blog">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
     </resultMap>
     <sql id="Base_Column_List">
@@ -46,7 +46,7 @@
     delete from t_blog
     where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.xzm.bean.Blog" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.xzm.blog.bean.Blog" useGeneratedKeys="true" keyProperty="id">
     insert into t_blog (id, title, user_id,
       description, first_picture, flag,
       appreciation, commentabled, recommend,
@@ -60,7 +60,7 @@
       #{updateTime,jdbcType=TIMESTAMP}, #{views,jdbcType=INTEGER}, #{type.id,jdbcType=INTEGER},
       #{content,jdbcType=LONGVARCHAR})
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.xzm.bean.Blog">
+    <update id="updateByPrimaryKeySelective" parameterType="com.xzm.blog.bean.Blog">
     update t_blog
     <set>
       <if test="title != null">
@@ -111,7 +111,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.xzm.bean.Blog">
+    <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.Blog">
     update t_blog
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{user.id,jdbcType=INTEGER},
@@ -167,6 +167,7 @@
     <include refid="Base_Column_List" />
     from t_blog where  published=true and YEAR(create_time)=#{year} order by create_time desc
     </select>
+    <!--该函数只用于后台-->
     <!--    List<Blog> selectByQuery(Map<String,Object> map);-->
     <select id="selectByQuery" resultMap="BaseResultMap">
     select

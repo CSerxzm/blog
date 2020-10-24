@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xzm.dao.CommentMapper">
-  <resultMap id="BaseResultMap" type="com.xzm.bean.Comment">
+<mapper namespace="com.xzm.blog.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.xzm.blog.bean.Comment">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="admin_comment" jdbcType="BIT" property="adminComment" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
@@ -24,7 +24,7 @@
     delete from t_comment
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.xzm.bean.Comment">
+  <insert id="insert" parameterType="com.xzm.blog.bean.Comment">
     insert into t_comment (id, admin_comment, avatar, 
       content, create_time, email, 
       nickname, blog_id)
@@ -32,7 +32,7 @@
       #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{blogId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.xzm.bean.Comment">
+  <insert id="insertSelective" parameterType="com.xzm.blog.bean.Comment">
     insert into t_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xzm.bean.Comment">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzm.blog.bean.Comment">
     update t_comment
     <set>
       <if test="adminComment != null">
@@ -114,7 +114,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xzm.bean.Comment">
+  <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.Comment">
     update t_comment
     set admin_comment = #{adminComment,jdbcType=BIT},
       avatar = #{avatar,jdbcType=VARCHAR},

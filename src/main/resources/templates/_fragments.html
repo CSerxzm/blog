@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
   <link rel="shortcut icon" href="../static/images/logo.png" th:href="@{/images/logo.png}" />
 </head>
+
 <body>
   <!--导航-->
   <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
@@ -20,7 +21,7 @@
       <div class="ui inverted secondary stackable menu">
         <div class="item">
           <img src="../static/images/logo.png" th:src="@{/images/logo.png}" class="ui rounded image " alt=""
-               style="width: 50px;height: 50px">
+            style="width: 50px;height: 50px">
         </div>
         <a href="#" th:href="@{/}" class="m-item item m-mobile-hide " th:classappend="${n==1} ? 'active'"><i
             class="large home icon"></i>首页</a>
@@ -55,7 +56,7 @@
           <div class="ui inverted link list">
             <div class="item">
               <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" class="ui rounded image" alt=""
-                   style="width: 110px">
+                style="width: 110px">
             </div>
           </div>
         </div>
@@ -65,20 +66,21 @@
             <div class="item">
               <i class="envelope outline icon"></i>
               <div class="content">
-                <p>3052720966@qq.com</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">3052720966@qq.com</p>
               </div>
             </div>
             <div class="item">
               <i class="qq icon"></i>
               <div class="content">
-                <p>3052720966</p>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">3052720966</p>
               </div>
             </div>
           </div>
         </div>
         <div class="three wide column">
           <h4 class="ui inverted header m-text-thin m-text-spaced m-opacity-mini">备案号</h4>
-          <a href="http://beian.miit.gov.cn/"><p class="m-text-thin m-text-spaced m-opacity-mini">蜀ICP备19035067号</p></a>
+          <p class="m-text-thin m-text-spaced m-opacity-mini"><a href="http://beian.miit.gov.cn/"
+              style="color:#afafaf">蜀ICP备19035067号</a></p>
         </div>
         <div class="seven wide column">
           <h4 class="ui inverted header m-text-thin m-text-spaced m-opacity-mini">Blog</h4>
