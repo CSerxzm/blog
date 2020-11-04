@@ -11,10 +11,10 @@
 </head>
 
 <body>
-<!--导航-->
-<nav th:replace="admin/_fragments :: menu(n=1)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
+  <!--导航-->
+  <nav th:replace="admin/_fragments :: menu(n=1)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
 
-</nav>
+  </nav>
   <div class="ui attached pointing menu">
     <div class="ui container">
       <div class="right menu">
@@ -98,7 +98,8 @@
                 th:unless="${page.pageNum==1}">上一页</a>
             </div>
             <div class="center aligned column">
-              第<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.pageNum}">1</h3>/<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.pages}"> 2 </h3> 页
+              第<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.pageNum}">1</h3>/<h3
+                class="ui orange header m-inline-block m-text-thin" th:text="${page.pages}"> 2 </h3> 页
             </div>
             <div class="right aligned column">
               <a href="#" th:href="@{/admin/blogs?(page=${page.pageNum}+1)}" class=" item"

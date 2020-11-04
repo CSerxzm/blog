@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
   <link rel="shortcut icon" href="../../static/images/logo.png" th:href="@{/images/logo.png}" />
 </head>
+
 <body>
   <!--导航-->
   <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
@@ -18,7 +19,7 @@
       <div class="ui inverted secondary stackable menu">
         <div class="item ">
           <img src="../static/images/logo.png" th:src="@{/images/logo.png}" class="ui rounded image " alt=""
-               style="width: 50px;height: 50px">
+            style="width: 50px;height: 50px">
         </div>
         <a href="#" th:href="@{/admin/blogs}" class=" m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i
             class="large home icon"></i>博客</a>
@@ -26,8 +27,8 @@
             class="large idea icon"></i>分类</a>
         <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i
             class="large tags icon"></i>标签</a>
-        <a href="#" th:href="@{/admin/comments}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i
-                class="large comment alternate icon"></i>评论</a>
+        <a href="#" th:href="@{/admin/comments}" class="m-item item m-mobile-hide"
+          th:classappend="${n==4} ? 'active'"><i class="large comment alternate icon"></i>评论</a>
         <div class="right m-item m-mobile-hide menu">
           <div class="ui dropdown  item">
             <div class="text">

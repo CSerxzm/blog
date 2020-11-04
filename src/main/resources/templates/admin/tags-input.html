@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head th:replace="admin/_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,12 @@
   <link rel="stylesheet" href="../../static/css/me.css">
   <link rel="shortcut icon" href="../../static/images/logo.png" th:href="@{/images/logo.png}" />
 </head>
-<body>
-<!--导航-->
-<nav th:replace="admin/_fragments :: menu(n=0)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
 
-</nav>
+<body>
+  <!--导航-->
+  <nav th:replace="admin/_fragments :: menu(n=0)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
+
+  </nav>
   <div class="ui attached pointing menu">
     <div class="ui container">
       <div class="right menu">
@@ -23,14 +25,15 @@
   </div>
 
   <!--中间内容-->
-  <div  class="m-container-small m-padded-tb-big">
+  <div class="m-container-small m-padded-tb-big">
     <div class="ui container">
-      <form action="#" method="post"  th:object="${tag}" th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})} "  class="ui form">
+      <form action="#" method="post" th:object="${tag}"
+        th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})} " class="ui form">
         <input type="hidden" name="id" th:value="*{id}">
         <div class=" field">
           <div class="ui left labeled input">
             <label class="ui blue basic label">名称</label>
-            <input type="text" name="name" placeholder="分类名称" th:value="*{name}" >
+            <input type="text" name="name" placeholder="分类名称" th:value="*{name}">
           </div>
         </div>
 
@@ -43,7 +46,7 @@
         </div>
          /*/-->
         <div class="ui right aligned container">
-          <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
+          <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
           <button class="ui blue submit button">提交</button>
         </div>
 
@@ -71,7 +74,7 @@
           </div>
         </div>
         <div class="three wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
+          <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
           <div class="ui inverted link list">
             <a href="#" class="item m-text-thin">用户故事（User Story）</a>
             <a href="#" class="item m-text-thin">用户故事（User Story）</a>
@@ -108,15 +111,15 @@
     });
 
     $('.ui.dropdown').dropdown({
-      on : 'hover'
+      on: 'hover'
     });
 
     $('.ui.form').form({
-      fields : {
-        title : {
+      fields: {
+        title: {
           identifier: 'name',
           rules: [{
-            type : 'empty',
+            type: 'empty',
             prompt: '请输入标签名称'
           }]
         }
@@ -125,4 +128,5 @@
 
   </script>
 </body>
+
 </html>

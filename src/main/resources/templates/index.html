@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,12 @@
   <link rel="stylesheet" href="../static/css/me.css">
   <link rel="shortcut icon" href="../static/images/logo.png" th:href="@{/images/logo.png}" />
 </head>
-<body>
-<!--导航-->
-<nav th:replace="_fragments :: menu(n=1)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
 
-</nav>
+<body>
+  <!--导航-->
+  <nav th:replace="_fragments :: menu(n=1)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
+
+  </nav>
 
   <!--中间内容-->
   <div class="m-container m-padded-tb-big animated fadeIn content_container">
