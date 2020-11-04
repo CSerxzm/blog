@@ -16,7 +16,7 @@
 * blog的赞赏（扫描支付宝，微信转账，喜欢的可以转个三元五元，支持服务器的运行）   
 **在线乞讨(支付宝扫码哦)**
 
-<img src="./src/main/resources/static/images/alipay.png" alt="1" style="zoom: 33%;" />
+<img src="./src/main/resources/static/images/alipay.png" width = "200" alt="" align=center />
 
 * 文章的分类浏览，分标签，归档。
 ## 演示地址
@@ -24,4 +24,4 @@
 
 **什么？上面没有支付宝，我信了，那么微信喃？**
 
-<img src="./src/main/resources/static/images/wepay.png" alt="1" style="zoom:33%;" />
+<img src="./src/main/resources/static/images/wepay.png" width = "200" alt="" align=center />

@@ -222,7 +222,7 @@
   });
 
   var serurl ="https://fuyuanplant.cn";
-  var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
+  var url =/*[[@{/blog/{id}(id=${blog.id})}]]*/;
   var qrcode = new QRCode("qrcode", {
     text: serurl + url,
     width: 110,
@@ -253,7 +253,7 @@
   //评论表单验证
   $('.ui.form').form({
     fields: {
-      title: {
+        content: {
         identifier: 'content',
         rules: [{
           type: 'empty',
@@ -261,14 +261,14 @@
         }
         ]
       },
-      content: {
+        nickname: {
         identifier: 'nickname',
         rules: [{
           type: 'empty',
           prompt: '请输入你的大名'
         }]
       },
-      type: {
+        email: {
         identifier: 'email',
         rules: [{
           type: 'email',
@@ -279,7 +279,7 @@
   });
 
   $(function () {
-    $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
+    $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/);
   });
 
 
@@ -296,13 +296,12 @@
   });
 
   function postData() {
-    $("#comment-container").load(/*[[@{/comments}]]*/"", {
+    $("#comment-container").load(/*[[@{/comments}]]*/, {
       "blogId": $("[name='blogId']").val(),
       "nickname": $("[name='nickname']").val(),
       "email": $("[name='email']").val(),
       "content": $("[name='content']").val()
     }, function (responseTxt, statusTxt, xhr) {
-      //        $(window).scrollTo($('#comment-container'),500);
       clearContent();
     });
   }
