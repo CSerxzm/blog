@@ -1,5 +1,6 @@
 package com.xzm.blog.service;
 
+import com.alibaba.fastjson.JSON;
 import com.xzm.blog.NotFoundException;
 import com.xzm.blog.bean.Blog;
 import com.xzm.blog.dao.BlogMapper;
@@ -10,12 +11,10 @@ import com.xzm.blog.util.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.annotation.Resource;
 import java.util.*;
 
 @Service
@@ -27,12 +26,6 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private TagMapper tagMapper;
 
-    @Resource(name = "blogRedisTemplate")
-    private RedisTemplate blogRedisTemplate;
-
-    @Resource(name = "redisUtils")
-    private RedisUtils<Blog> redisUtils;
-
     @Override
     public Blog selectBlog(Integer id) {
         return blogMapper.selectByPrimaryKey(id);
@@ -42,20 +35,24 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public Blog selectAndConvert(Integer id) {
-        Blog blog;
-        System.out.println("redisUtils=" + redisUtils);
-        if (redisUtils.isEmpty(blogRedisTemplate, BlogConstant.ONEBLOG + id)) {
+        Blog blog=null;
+        if (RedisUtils.isEmpty(BlogConstant.ONEBLOG + id)) {
             blog = blogMapper.selectByPrimaryKey(id);
             if (blog == null) {
                 throw new NotFoundException("该blog不存在");
             }
             blog.setContent(MarkdownUtils.markdownToHtmlExtensions(blog.getContent()));
-            redisUtils.setValue(blogRedisTemplate, BlogConstant.ONEBLOG + id, blog);
+            blog.setViews(blog.getViews()+1);
+            //存储内容
+            RedisUtils.hPut(BlogConstant.ONEBLOG + id,"blog",JSON.toJSONString(blog));
+            //存储浏览量
+            RedisUtils.hPut(BlogConstant.ONEBLOG + id,"views",blog.getViews().toString());
         } else {
-            blog = redisUtils.getValue(blogRedisTemplate, BlogConstant.ONEBLOG + id);
-            blog.setViews(blog.getViews() + 1);
+            //存在该blog
+            RedisUtils.hIncrement(BlogConstant.ONEBLOG + id,"views");
+            blog = JSON.parseObject(RedisUtils.hGet(BlogConstant.ONEBLOG + id,"blog").toString(),Blog.class);
+            blog.setViews(blog.getViews());
         }
-        blogMapper.addBlogViews(id);
         return blog;
     }
 
@@ -72,13 +69,14 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> selectRecommendBlogTop(Integer size) {
         List<Blog> blogs;
-        if (redisUtils.isEmpty(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS)) {
+        if (RedisUtils.isEmpty(BlogConstant.RECOMMENDBLOGS)) {
             blogs = blogMapper.selectRecommendBlogTop(size);
             if (!blogs.isEmpty()) {
-                redisUtils.setValueList(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS, blogs);
+                String s = JSON.toJSONString(blogs);
+                RedisUtils.set(BlogConstant.RECOMMENDBLOGS,s);
             }
         } else {
-            blogs = redisUtils.getValueList(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS);
+            blogs = JSON.parseArray(RedisUtils.get(BlogConstant.RECOMMENDBLOGS).toString(),Blog.class);
         }
         return blogs;
     }
@@ -86,13 +84,14 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> selectHotBlogTop(Integer size) {
         List<Blog> blogs;
-        if (redisUtils.isEmpty(blogRedisTemplate, BlogConstant.HOTBLOGS)) {
+        if (RedisUtils.isEmpty(BlogConstant.HOTBLOGS)) {
             blogs = blogMapper.selectHotBlogTop(size);
             if (!blogs.isEmpty()) {
-                redisUtils.setValueList(blogRedisTemplate, BlogConstant.HOTBLOGS, blogs);
+                String s = JSON.toJSONString(blogs);
+                RedisUtils.set(BlogConstant.HOTBLOGS, s);
             }
         } else {
-            blogs = redisUtils.getValueList(blogRedisTemplate, BlogConstant.HOTBLOGS);
+            blogs = JSON.parseArray(RedisUtils.get(BlogConstant.HOTBLOGS).toString(),Blog.class);
         }
         return blogs;
     }
@@ -188,5 +187,22 @@ public class BlogServiceImpl implements BlogService {
         query.put("type_id", type_id);
         query.put("recommend", recommend);
         return blogMapper.selectByQuery(query);
+    }
+
+    /**
+     * 在定时任务中调用，每过20分钟，缓存刷回数据库
+     * @return
+     */
+    @Override
+    public Boolean saveViews() {
+        Set<String> keys = RedisUtils.getKeys("blog*");
+        for(String key:keys){
+            String views = ((String) RedisUtils.hGet(key, "views"));
+            Integer integer = Integer.valueOf(views);
+            String id = key.replaceAll(".*[^\\d](?=(\\d+))","");
+            blogMapper.saveBlogViews(Integer.valueOf(id),integer);
+            RedisUtils.del(key);
+        }
+        return true;
     }
 }

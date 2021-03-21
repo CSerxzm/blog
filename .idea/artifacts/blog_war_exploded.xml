@@ -9,6 +9,8 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-aop:1.5.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.5.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.5.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:1.5.9.RELEASE" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.11" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.11" />
@@ -68,13 +70,16 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.13.RELEASE" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.6" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-devtools:1.5.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.5.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.13.RELEASE" />
           <element id="library" level="project" name="Maven: com.github.ulisesbocchio:jasypt-spring-boot-starter:1.8" />
           <element id="library" level="project" name="Maven: com.github.ulisesbocchio:jasypt-spring-boot:1.8" />
           <element id="library" level="project" name="Maven: org.jasypt:jasypt:1.9.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.13.RELEASE" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.41" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.3.0" />
+          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz-jobs:2.3.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

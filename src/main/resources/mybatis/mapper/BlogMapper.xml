@@ -214,8 +214,8 @@
             #{item_id}
         </foreach>
     </select>
-    <!--int addBlogViews(Integer id);-->
-    <update id="addBlogViews">
-        update t_blog set views = views+1 where id = #{id}
+    <!--int saveBlogViews(@Param("id") Integer id, @Param("views") Integer views);-->
+    <update id="saveBlogViews">
+        update t_blog set views =#{views} where id = #{id}
     </update>
 </mapper>

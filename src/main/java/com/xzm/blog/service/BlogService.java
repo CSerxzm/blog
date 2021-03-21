@@ -13,6 +13,8 @@ public interface BlogService {
 
     List<Blog> selectBlog();
 
+    Boolean saveViews();
+
     List<Blog> selectBlogAdmin();
 
     List<Blog> selectRecommendBlogTop(Integer size);

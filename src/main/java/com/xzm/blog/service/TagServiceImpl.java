@@ -1,5 +1,6 @@
 package com.xzm.blog.service;
 
+import com.alibaba.fastjson.JSON;
 import com.xzm.blog.NotFoundException;
 import com.xzm.blog.bean.Blog;
 import com.xzm.blog.bean.Tag;
@@ -25,12 +26,6 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     private BlogMapper blogMapper;
-
-    @Resource(name = "tagRedisTemplate")
-    private RedisTemplate tagRedisTemplate;
-
-    @Autowired
-    private RedisUtils<Tag> redisUtils;
 
     @Transactional
     @Override
@@ -58,13 +53,14 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> selectTagTop(Integer size) {
         List<Tag> tags;
-        if (redisUtils.isEmpty(tagRedisTemplate, BlogConstant.TAGTOP)) {
+        if (RedisUtils.isEmpty(BlogConstant.TAGTOP)) {
             tags = tagMapper.selectTagTop(size);
             if (!tags.isEmpty()) {
-                redisUtils.setValueList(tagRedisTemplate, BlogConstant.TAGTOP, tags);
+                String s = JSON.toJSONString(tags);
+                RedisUtils.set(BlogConstant.TAGTOP, s);
             }
         } else {
-            tags = redisUtils.getValueList(tagRedisTemplate, BlogConstant.TAGTOP);
+            tags = JSON.parseArray(RedisUtils.get(BlogConstant.TAGTOP).toString(),Tag.class);
         }
         return tags;
     }

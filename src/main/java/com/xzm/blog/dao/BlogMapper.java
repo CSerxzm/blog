@@ -40,5 +40,5 @@ public interface BlogMapper {
 
     List<Blog> selectByIds(@Param("ids") List<Integer> ids);
 
-    int addBlogViews(Integer id);
+    int saveBlogViews(@Param("id") Integer id, @Param("views") Integer views);
 }

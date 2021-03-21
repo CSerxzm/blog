@@ -1,5 +1,6 @@
 package com.xzm.blog.service;
 
+import com.alibaba.fastjson.JSON;
 import com.xzm.blog.NotFoundException;
 import com.xzm.blog.bean.Type;
 import com.xzm.blog.dao.TypeMapper;
@@ -19,12 +20,6 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeMapper typeMapper;
-
-    @Resource(name = "typeRedisTemplate")
-    private RedisTemplate typeRedisTemplate;
-
-    @Autowired
-    private RedisUtils<Type> redisUtils;
 
     @Transactional
     @Override
@@ -51,13 +46,14 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public List<Type> selectTypeTop(Integer size) {
         List<Type> types;
-        if (redisUtils.isEmpty(typeRedisTemplate, BlogConstant.TYPETOP)) {
+        if (RedisUtils.isEmpty(BlogConstant.TYPETOP)) {
             types = typeMapper.selectTypeTop(size);
             if (!types.isEmpty()) {
-                redisUtils.setValueList(typeRedisTemplate, BlogConstant.TYPETOP, types);
+                String s = JSON.toJSONString(types);
+                RedisUtils.set(BlogConstant.TYPETOP,s);
             }
         } else {
-            types = redisUtils.getValueList(typeRedisTemplate, BlogConstant.TYPETOP);
+            types = JSON.parseArray(RedisUtils.get(BlogConstant.TYPETOP).toString(),Type.class);
         }
         return types;
     }

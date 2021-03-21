@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="blog@localhost" uuid="c76b4e5c-0312-4771-bcaf-e78a52bb2744">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="MYSQL" exact-version="0.0" />
       <introspection-schemas>*:blog</introspection-schemas>
     </data-source>
   </component>

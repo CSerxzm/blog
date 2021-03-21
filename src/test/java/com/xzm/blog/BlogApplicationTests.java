@@ -26,10 +26,16 @@ public class BlogApplicationTests {
 
     @Test
     public void test() {
-        System.out.println("username:" + encryptor.encrypt("123456"));
-        System.out.println("password:" + encryptor.encrypt("123456"));
+        System.out.println("username:" + encryptor.encrypt("root"));
+        System.out.println("password:" + encryptor.encrypt("egova"));
         System.out.println("emailpassword:" + encryptor.encrypt("123456"));
+    }
 
+    @Test
+    public void test01(){
+        String filter = "blog123";
+        String id = filter.replaceAll(".*[^\\d](?=(\\d+))","");
+        System.out.println(id);
     }
 
 }
