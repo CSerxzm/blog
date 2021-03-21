@@ -26,7 +26,7 @@ public class TagServiceImpl implements TagService {
     @Autowired
     private BlogMapper blogMapper;
 
-    @Resource(name="tagRedisTemplate")
+    @Resource(name = "tagRedisTemplate")
     private RedisTemplate tagRedisTemplate;
 
     @Autowired
@@ -38,13 +38,13 @@ public class TagServiceImpl implements TagService {
         return tagMapper.insert(tag);
     }
 
-    @Cacheable(value = "tag",key="#id")
+    @Cacheable(value = "tag", key = "#id")
     @Override
     public Tag selectTag(Integer id) {
         return tagMapper.selectByPrimaryKey(id);
     }
 
-    @Cacheable(value = "tag",key="#name")
+    @Cacheable(value = "tag", key = "#name")
     @Override
     public Tag selectTagByName(String name) {
         return tagMapper.selectTagByName(name);
@@ -58,13 +58,13 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> selectTagTop(Integer size) {
         List<Tag> tags;
-        if(redisUtils.isEmpty(tagRedisTemplate, BlogConstant.TAGTOP)){
-            tags=tagMapper.selectTagTop(size);
-            if(!tags.isEmpty()){
-                redisUtils.setValueList(tagRedisTemplate,BlogConstant.TAGTOP,tags);
+        if (redisUtils.isEmpty(tagRedisTemplate, BlogConstant.TAGTOP)) {
+            tags = tagMapper.selectTagTop(size);
+            if (!tags.isEmpty()) {
+                redisUtils.setValueList(tagRedisTemplate, BlogConstant.TAGTOP, tags);
             }
-        }else{
-            tags=redisUtils.getValueList(tagRedisTemplate,BlogConstant.TAGTOP);
+        } else {
+            tags = redisUtils.getValueList(tagRedisTemplate, BlogConstant.TAGTOP);
         }
         return tags;
     }
@@ -73,7 +73,7 @@ public class TagServiceImpl implements TagService {
         List<Integer> list = new ArrayList<>();
         if (!"".equals(ids) && ids != null) {
             String[] idarray = ids.split(",");
-            for (int i=0; i < idarray.length;i++) {
+            for (int i = 0; i < idarray.length; i++) {
                 list.add(new Integer(idarray[i]));
             }
         }
@@ -97,20 +97,21 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Blog> selectBlogByTagId(Integer id){
+    public List<Blog> selectBlogByTagId(Integer id) {
         List<Integer> blogIds = tagMapper.selectBlogIdByTagId(id);
         List<Blog> blogs = blogMapper.selectByIds(blogIds);
         return blogs;
     }
 
     @Override
-    public List<Tag> selectTagByBlogId(Integer id){
-        List<Tag> tags=tagMapper.selectTagByBlogId(id);
+    public List<Tag> selectTagByBlogId(Integer id) {
+        List<Tag> tags = tagMapper.selectTagByBlogId(id);
         return tags;
     }
+
     @Transactional
     @Override
-    public int saveBlogAndTag(int blogId,List<Integer> tagIds){
-        return tagMapper.saveBlogAndTag(blogId,tagIds);
+    public int saveBlogAndTag(int blogId, List<Integer> tagIds) {
+        return tagMapper.saveBlogAndTag(blogId, tagIds);
     }
 }

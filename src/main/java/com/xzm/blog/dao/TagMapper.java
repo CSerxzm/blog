@@ -20,13 +20,19 @@ public interface TagMapper {
 
     //新增
     Tag selectTagByName(String name);
+
     List<Tag> selectAll();
+
     int count();
+
     List<Tag> selectTagTop(Integer size);
 
     //在blog_tag表进行操作
     List<Integer> selectBlogIdByTagId(Integer id);
+
     List<Tag> selectTagByBlogId(Integer id);
-    int saveBlogAndTag(@Param("blogId") int blogId,@Param("tagIds") List<Integer> tagIds);
+
+    int saveBlogAndTag(@Param("blogId") int blogId, @Param("tagIds") List<Integer> tagIds);
+
     int deleteTagByBlogId(Integer id);
 }

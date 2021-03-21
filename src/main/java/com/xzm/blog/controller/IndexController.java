@@ -28,11 +28,11 @@ public class IndexController {
     private TagService tagService;
 
     @GetMapping("/")
-    public String index(@RequestParam(value="page",defaultValue = "1") int pageIndex,Model model) {
+    public String index(@RequestParam(value = "page", defaultValue = "1") int pageIndex, Model model) {
         Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZE);
-        model.addAttribute(BlogConstant.BLOGS,blogService.selectBlog());
-        model.addAttribute(BlogConstant.PAGE,page);
-        page=null;
+        model.addAttribute(BlogConstant.BLOGS, blogService.selectBlog());
+        model.addAttribute(BlogConstant.PAGE, page);
+        page = null;
         model.addAttribute(BlogConstant.TYPES, typeService.selectTypeTop(BlogConstant.SIZETOP));
         model.addAttribute(BlogConstant.TAGS, tagService.selectTagTop(BlogConstant.SIZETOP));
         model.addAttribute(BlogConstant.RECOMMENDBLOGS, blogService.selectRecommendBlogTop(BlogConstant.BLOGTOP));
@@ -42,12 +42,12 @@ public class IndexController {
 
 
     @RequestMapping("/search")
-    public String search(@RequestParam(value="page",defaultValue = "1") int pageIndex, @Param("query") String query, Model model, HttpSession session) {
-        Page page = PageHelper.startPage(pageIndex,BlogConstant.PAGESIZE);
-        if(query==null){
+    public String search(@RequestParam(value = "page", defaultValue = "1") int pageIndex, @Param("query") String query, Model model, HttpSession session) {
+        Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZE);
+        if (query == null) {
             query = (String) session.getAttribute("query");
-        }else{
-            session.setAttribute("query",query);
+        } else {
+            session.setAttribute("query", query);
         }
         model.addAttribute(BlogConstant.BLOGS, blogService.selectByTitlelike(query));
         model.addAttribute(BlogConstant.PAGE, page);
@@ -55,9 +55,9 @@ public class IndexController {
     }
 
     @GetMapping("/blog/{id}")
-    public String blog(@PathVariable Integer id,Model model) {
+    public String blog(@PathVariable Integer id, Model model) {
         model.addAttribute(BlogConstant.ONEBLOG, blogService.selectAndConvert(id));
-        model.addAttribute(BlogConstant.TAGS,tagService.selectTagByBlogId(id));
+        model.addAttribute(BlogConstant.TAGS, tagService.selectTagByBlogId(id));
         return "blog";
     }
 

@@ -20,7 +20,7 @@ public class TypeServiceImpl implements TypeService {
     @Autowired
     private TypeMapper typeMapper;
 
-    @Resource(name="typeRedisTemplate")
+    @Resource(name = "typeRedisTemplate")
     private RedisTemplate typeRedisTemplate;
 
     @Autowired
@@ -32,7 +32,7 @@ public class TypeServiceImpl implements TypeService {
         return typeMapper.insert(type);
     }
 
-    @Cacheable(value = "type",key="#id")
+    @Cacheable(value = "type", key = "#id")
     @Override
     public Type selectType(Integer id) {
         return typeMapper.selectByPrimaryKey(id);
@@ -40,24 +40,24 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Type selectTypeByName(String name) {
-            return typeMapper.selectTypeByName(name);
+        return typeMapper.selectTypeByName(name);
     }
 
     @Override
     public List<Type> selectType() {
-        return typeMapper.selectAll( );
+        return typeMapper.selectAll();
     }
 
     @Override
     public List<Type> selectTypeTop(Integer size) {
         List<Type> types;
-        if(redisUtils.isEmpty(typeRedisTemplate, BlogConstant.TYPETOP)){
-            types=typeMapper.selectTypeTop(size);
-            if(!types.isEmpty()){
-                redisUtils.setValueList(typeRedisTemplate,BlogConstant.TYPETOP,types);
+        if (redisUtils.isEmpty(typeRedisTemplate, BlogConstant.TYPETOP)) {
+            types = typeMapper.selectTypeTop(size);
+            if (!types.isEmpty()) {
+                redisUtils.setValueList(typeRedisTemplate, BlogConstant.TYPETOP, types);
             }
-        }else{
-            types=redisUtils.getValueList(typeRedisTemplate,BlogConstant.TYPETOP);
+        } else {
+            types = redisUtils.getValueList(typeRedisTemplate, BlogConstant.TYPETOP);
         }
         return types;
     }

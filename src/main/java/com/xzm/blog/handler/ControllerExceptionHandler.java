@@ -18,14 +18,14 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView exceptionHander(HttpServletRequest request, Exception e) throws Exception {
-        logger.error("Requst URL : {}，Exception : {}", request.getRequestURL(),e);
+        logger.error("Requst URL : {}，Exception : {}", request.getRequestURL(), e);
 
         if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
             throw e;
         }
 
         ModelAndView mv = new ModelAndView();
-        mv.addObject("url",request.getRequestURL());
+        mv.addObject("url", request.getRequestURL());
         mv.addObject("exception", e);
         mv.setViewName("error/error");
         return mv;

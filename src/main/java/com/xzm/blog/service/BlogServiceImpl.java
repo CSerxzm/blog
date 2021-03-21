@@ -27,10 +27,10 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private TagMapper tagMapper;
 
-    @Resource(name="blogRedisTemplate")
+    @Resource(name = "blogRedisTemplate")
     private RedisTemplate blogRedisTemplate;
 
-    @Resource(name="redisUtils")
+    @Resource(name = "redisUtils")
     private RedisUtils<Blog> redisUtils;
 
     @Override
@@ -43,17 +43,17 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog selectAndConvert(Integer id) {
         Blog blog;
-        System.out.println("redisUtils="+redisUtils);
-        if(redisUtils.isEmpty(blogRedisTemplate,BlogConstant.ONEBLOG+id)){
+        System.out.println("redisUtils=" + redisUtils);
+        if (redisUtils.isEmpty(blogRedisTemplate, BlogConstant.ONEBLOG + id)) {
             blog = blogMapper.selectByPrimaryKey(id);
             if (blog == null) {
                 throw new NotFoundException("该blog不存在");
             }
             blog.setContent(MarkdownUtils.markdownToHtmlExtensions(blog.getContent()));
-            redisUtils.setValue(blogRedisTemplate,BlogConstant.ONEBLOG+id,blog);
-        }else{
-            blog = redisUtils.getValue(blogRedisTemplate,BlogConstant.ONEBLOG+id);
-            blog.setViews(blog.getViews()+1);
+            redisUtils.setValue(blogRedisTemplate, BlogConstant.ONEBLOG + id, blog);
+        } else {
+            blog = redisUtils.getValue(blogRedisTemplate, BlogConstant.ONEBLOG + id);
+            blog.setViews(blog.getViews() + 1);
         }
         blogMapper.addBlogViews(id);
         return blog;
@@ -65,33 +65,33 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> selectBlogAdmin(){
+    public List<Blog> selectBlogAdmin() {
         return blogMapper.selectAllAdmin();
     }
 
     @Override
     public List<Blog> selectRecommendBlogTop(Integer size) {
         List<Blog> blogs;
-        if(redisUtils.isEmpty(blogRedisTemplate,BlogConstant.RECOMMENDBLOGS)){
-            blogs=blogMapper.selectRecommendBlogTop(size);
-            if(!blogs.isEmpty()){
-                redisUtils.setValueList(blogRedisTemplate,BlogConstant.RECOMMENDBLOGS,blogs);
+        if (redisUtils.isEmpty(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS)) {
+            blogs = blogMapper.selectRecommendBlogTop(size);
+            if (!blogs.isEmpty()) {
+                redisUtils.setValueList(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS, blogs);
             }
-        }else{
+        } else {
             blogs = redisUtils.getValueList(blogRedisTemplate, BlogConstant.RECOMMENDBLOGS);
         }
         return blogs;
     }
 
     @Override
-    public List<Blog> selectHotBlogTop(Integer size){
+    public List<Blog> selectHotBlogTop(Integer size) {
         List<Blog> blogs;
-        if(redisUtils.isEmpty(blogRedisTemplate,BlogConstant.HOTBLOGS)){
-            blogs=blogMapper.selectHotBlogTop(size);
-            if(!blogs.isEmpty()){
-                redisUtils.setValueList(blogRedisTemplate,BlogConstant.HOTBLOGS,blogs);
+        if (redisUtils.isEmpty(blogRedisTemplate, BlogConstant.HOTBLOGS)) {
+            blogs = blogMapper.selectHotBlogTop(size);
+            if (!blogs.isEmpty()) {
+                redisUtils.setValueList(blogRedisTemplate, BlogConstant.HOTBLOGS, blogs);
             }
-        }else{
+        } else {
             blogs = redisUtils.getValueList(blogRedisTemplate, BlogConstant.HOTBLOGS);
         }
         return blogs;
@@ -101,14 +101,14 @@ public class BlogServiceImpl implements BlogService {
     public Map<String, List<Blog>> archiveBlog() {
         List<String> years = blogMapper.selectGroupYear();
         Map<String, List<Blog>> map = new LinkedHashMap<>();
-        Map<String,Object> query = new HashMap();
+        Map<String, Object> query = new HashMap();
         for (String year : years) {
             map.put(year, blogMapper.selectByYear(year));
         }
         return map;
     }
 
-    @Cacheable(value="blog",key = "#root.methodName",cacheManager="integerCacheManager")
+    @Cacheable(value = "blog", key = "#root.methodName", cacheManager = "integerCacheManager")
     @Override
     public int countBlog() {
         return blogMapper.count();
@@ -126,12 +126,12 @@ public class BlogServiceImpl implements BlogService {
         }
 
         blogMapper.insert(blog);
-        int b = tagMapper.saveBlogAndTag(blog.getId(),TagIdstoList(blog.getTagIds()));
+        int b = tagMapper.saveBlogAndTag(blog.getId(), TagIdstoList(blog.getTagIds()));
         return b;
     }
 
     // 1,2,3  -----> [1,2,3]
-    public List<Integer> TagIdstoList(String tagIds){
+    public List<Integer> TagIdstoList(String tagIds) {
         List<Integer> res = new ArrayList<>();
         String[] tagid = tagIds.split(",");
         for (int i = 0; i < tagid.length; i++) {
@@ -140,7 +140,7 @@ public class BlogServiceImpl implements BlogService {
         return res;
     }
 
-    @CacheEvict(value="blog",key = "#id")
+    @CacheEvict(value = "blog", key = "#id")
     @Transactional
     @Override
     public int updateBlog(Integer id, Blog blog) {
@@ -152,7 +152,7 @@ public class BlogServiceImpl implements BlogService {
 
         //对标签进行修改
         tagMapper.deleteTagByBlogId(blog.getId());
-        tagMapper.saveBlogAndTag(blog.getId(),TagIdstoList(blog.getTagIds()));
+        tagMapper.saveBlogAndTag(blog.getId(), TagIdstoList(blog.getTagIds()));
 
         return blogMapper.updateByPrimaryKeySelective(blog);
     }
@@ -164,29 +164,29 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> selectBlogByTypeId(Integer id){
-        Map<String,Object> query = new HashMap();
-        query.put("type_id",id);
-        query.put("published",true);
+    public List<Blog> selectBlogByTypeId(Integer id) {
+        Map<String, Object> query = new HashMap();
+        query.put("type_id", id);
+        query.put("published", true);
         List<Blog> blogs = blogMapper.selectBlogByTypeId(id);
         return blogs;
     }
 
     @Override
-    public List<Blog> selectBlog(String ids){
+    public List<Blog> selectBlog(String ids) {
         return null;
     }
 
     @Override
-    public List<Blog> selectByTitlelike(String title){
+    public List<Blog> selectByTitlelike(String title) {
         return blogMapper.selectByTitlelike(title);
     }
 
-    public List<Blog> selectByTitleTypeandRecommend(String title,Integer type_id,Boolean recommend){
-        Map<String,Object> query = new HashMap();
-        query.put("title",title);
-        query.put("type_id",type_id);
-        query.put("recommend",recommend);
+    public List<Blog> selectByTitleTypeandRecommend(String title, Integer type_id, Boolean recommend) {
+        Map<String, Object> query = new HashMap();
+        query.put("title", title);
+        query.put("type_id", type_id);
+        query.put("recommend", recommend);
         return blogMapper.selectByQuery(query);
     }
 }

@@ -19,13 +19,13 @@ public interface BlogService {
 
     List<Blog> selectHotBlogTop(Integer size);
 
-    Map<String,List<Blog>> archiveBlog();
+    Map<String, List<Blog>> archiveBlog();
 
     int countBlog();
 
     int saveBlog(Blog blog);
 
-    int updateBlog(Integer id,Blog blog);
+    int updateBlog(Integer id, Blog blog);
 
     int deleteBlog(Integer id);
 
@@ -37,6 +37,6 @@ public interface BlogService {
 
     List<Blog> selectByTitlelike(String title);
 
-    List<Blog> selectByTitleTypeandRecommend(String title,Integer type_id,Boolean recommend);
+    List<Blog> selectByTitleTypeandRecommend(String title, Integer type_id, Boolean recommend);
 
 }

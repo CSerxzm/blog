@@ -19,15 +19,26 @@ public interface BlogMapper {
 
     //新增方法
     List<Blog> selectAll();
+
     List<Blog> selectAllAdmin();
+
     int count();
+
     List<Blog> selectRecommendBlogTop(Integer size);
+
     List<Blog> selectHotBlogTop(Integer size);
+
     List<String> selectGroupYear();
+
     List<Blog> selectByYear(String year);
-    List<Blog> selectByQuery(Map<String,Object> map);
+
+    List<Blog> selectByQuery(Map<String, Object> map);
+
     List<Blog> selectByTitlelike(String title);
+
     List<Blog> selectBlogByTypeId(Integer id);
+
     List<Blog> selectByIds(@Param("ids") List<Integer> ids);
+
     int addBlogViews(Integer id);
 }

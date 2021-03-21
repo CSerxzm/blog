@@ -2,101 +2,103 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:replace="admin/_fragments :: head(~{::title})">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>标签管理</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-  <link rel="stylesheet" href="../../static/css/me.css">
-  <link rel="shortcut icon" href="../../static/images/logo.png" th:href="@{/images/logo.png}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标签管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel="shortcut icon" href="../../static/images/logo.png" th:href="@{/images/logo.png}"/>
 </head>
 
 <body>
-  <!--导航-->
-  <nav th:replace="admin/_fragments :: menu(n=4)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(n=4)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
 
-  </nav>
+</nav>
 
-  <!--中间内容-->
-  <div class="m-container-small m-padded-tb-big content_container">
+<!--中间内容-->
+<div class="m-container-small m-padded-tb-big content_container">
     <div class="ui container">
-      <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-        <i class="close icon"></i>
-        <div class="header">提示：</div>
-        <p th:text="${message}">恭喜，操作成功！</p>
-      </div>
-      <table class="ui compact blue table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>博客id</th>
-            <th>昵称</th>
-            <th>邮箱</th>
-            <th>时间</th>
-            <th>内容</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="comment,iterStat : ${comments}">
-            <td th:text="${iterStat.count}">1</td>
-            <td th:text="${comment.blogId}">1</td>
-            <td th:text="${comment.nickname}">CSerxzm</td>
-            <td th:text="${comment.email}">3052720966@qq.com</td>
-            <td th:text="${comment.createTime}">3月4日</td>
-            <td th:text="${comment.content}">你好啊</td>
-            <td>
-              <a href="#" th:href="@{/admin/comments/{id}/delete(id=${comment.id})}" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="ui bottom attached segment m-padded-tb-mini" th:if="${page.pages}>1">
-        <div class="ui middle aligned three column grid">
-          <div class="column">
-            <a href="#" th:href="@{/admin/tags?(page=${page.pageNum}-1)}" class="item"
-               th:unless="${page.pageNum==1}">上一页</a>
-          </div>
-          <div class="center aligned column">
-            第<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.pageNum}">1</h3>/<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.pages}"> 2 </h3> 页
-          </div>
-          <div class="right aligned column">
-            <a href="#" th:href="@{/admin/tags?(page=${page.pageNum}+1)}" class=" item"
-               th:unless="${page.pageNum==page.pages}">下一页</a>
-          </div>
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">恭喜，操作成功！</p>
         </div>
-      </div>
+        <table class="ui compact blue table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>博客id</th>
+                <th>昵称</th>
+                <th>邮箱</th>
+                <th>时间</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment,iterStat : ${comments}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${comment.blogId}">1</td>
+                <td th:text="${comment.nickname}">CSerxzm</td>
+                <td th:text="${comment.email}">3052720966@qq.com</td>
+                <td th:text="${comment.createTime}">3月4日</td>
+                <td th:text="${comment.content}">你好啊</td>
+                <td>
+                    <a href="#" th:href="@{/admin/comments/{id}/delete(id=${comment.id})}"
+                       class="ui mini red basic button">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="ui bottom attached segment m-padded-tb-mini" th:if="${page.pages}>1">
+            <div class="ui middle aligned three column grid">
+                <div class="column">
+                    <a href="#" th:href="@{/admin/tags?(page=${page.pageNum}-1)}" class="item"
+                       th:unless="${page.pageNum==1}">上一页</a>
+                </div>
+                <div class="center aligned column">
+                    第<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.pageNum}">1</h3>/<h3
+                        class="ui orange header m-inline-block m-text-thin" th:text="${page.pages}"> 2 </h3> 页
+                </div>
+                <div class="right aligned column">
+                    <a href="#" th:href="@{/admin/tags?(page=${page.pageNum}+1)}" class=" item"
+                       th:unless="${page.pageNum==page.pages}">下一页</a>
+                </div>
+            </div>
+        </div>
 
     </div>
-  </div>
+</div>
 <br>
 <br>
 <br>
 <br>
-  <!--底部footer-->
-  <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+<!--底部footer-->
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
 
-  </footer>
-  <!--/*/<th:block th:replace="_fragments :: script">/*/-->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-  <!--/*/</th:block>/*/-->
-  <script>
+</footer>
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+<script>
     $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide');
+        $('.m-item').toggleClass('m-mobile-hide');
     });
 
     $('.ui.dropdown').dropdown({
-      on: 'hover'
+        on: 'hover'
     });
 
     //消息提示关闭初始化
     $('.message .close')
-      .on('click', function () {
-        $(this)
-          .closest('.message')
-          .transition('fade');
-      });
-  </script>
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+</script>
 </body>
 </html>

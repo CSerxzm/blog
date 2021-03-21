@@ -36,7 +36,7 @@ public class CommentShowController {
 
 
     @PostMapping("/comments")
-    public String post(Comment comment, HttpSession session){
+    public String post(Comment comment, HttpSession session) {
         System.out.println(comment);
         Integer blogId = comment.getBlogId();
         comment.setBlogId(blogId);
@@ -52,7 +52,6 @@ public class CommentShowController {
         emailService.sendtoAdmin(comment);
         return "redirect:/comments/" + blogId;
     }
-
 
 
 }

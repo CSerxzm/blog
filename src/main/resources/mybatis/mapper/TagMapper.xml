@@ -1,110 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xzm.blog.dao.TagMapper">
-  <resultMap id="BaseResultMap" type="com.xzm.blog.bean.Tag">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="blog_num" property="blogNum" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_tag
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_tag
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.xzm.blog.bean.Tag">
-    insert into t_tag (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.xzm.blog.bean.Tag">
-    insert into t_tag
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xzm.blog.bean.Tag">
-    update t_tag
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.Tag">
-    update t_tag
-    set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.xzm.blog.bean.Tag">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="blog_num" property="blogNum"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_tag
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_tag
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.xzm.blog.bean.Tag">
+        insert into t_tag (id, name)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xzm.blog.bean.Tag">
+        insert into t_tag
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xzm.blog.bean.Tag">
+        update t_tag
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.Tag">
+        update t_tag
+        set name = #{name,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
-  <!-- Tag selectTagByName(String name);-->
-  <select id="selectTagByName"  resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_tag
-    where name=#{name}
-  </select>
+    <!-- Tag selectTagByName(String name);-->
+    <select id="selectTagByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_tag
+        where name=#{name}
+    </select>
 
-  <!--List<Tag> selectAll();-->
-  <select id="selectAll" resultMap="BaseResultMap">
-    select *
-    from t_tag
-  </select>
+    <!--List<Tag> selectAll();-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from t_tag
+    </select>
 
-  <!--int count();-->
-  <select id="count">
-    select count( * ) from t_tag
-  </select>
+    <!--int count();-->
+    <select id="count">
+        select count( * ) from t_tag
+    </select>
 
-  <!--List<Tag> selectTagTop(Integer size);-->
-  <select id="selectTagTop" resultMap="BaseResultMap">
-    select tag_id as id,name,count(*) as blog_num from
-    t_blog_tag,t_tag,(select * from t_blog where published=true) as t_blog
-    where tag_id=t_tag.id and t_blog.id=blog_id group by tag_id order by blog_num desc limit #{size}
-  </select>
+    <!--List<Tag> selectTagTop(Integer size);-->
+    <select id="selectTagTop" resultMap="BaseResultMap">
+        select tag_id as id,name,count(*) as blog_num from
+        t_blog_tag,t_tag,(select * from t_blog where published=true) as t_blog
+        where tag_id=t_tag.id and t_blog.id=blog_id group by tag_id order by blog_num desc limit #{size}
+    </select>
 
-  <!--List<Integer> selectBlogIdByTagId(Integer id);-->
-  <select id="selectBlogIdByTagId" resultType="Integer">
-    select blog_id from t_blog_tag where tag_id=#{id}
-  </select>
+    <!--List<Integer> selectBlogIdByTagId(Integer id);-->
+    <select id="selectBlogIdByTagId" resultType="Integer">
+        select blog_id from t_blog_tag where tag_id=#{id}
+    </select>
 
-  <!-- List<Tag> selectTagByBlogId(Integer id);-->
-  <select id="selectTagByBlogId" resultMap="BaseResultMap">
-    select id,name from t_blog_tag,t_tag where id=tag_id and blog_id=#{id}
-  </select>
+    <!-- List<Tag> selectTagByBlogId(Integer id);-->
+    <select id="selectTagByBlogId" resultMap="BaseResultMap">
+        select id,name from t_blog_tag,t_tag where id=tag_id and blog_id=#{id}
+    </select>
 
-  <!--int saveBlogAndTag(@Param("blogId") int blogId,@Param("tagIds") List<Integer> tagIds);-->
-  <insert id="saveBlogAndTag">
-    insert into t_blog_tag(blog_id,tag_id) values
-    <foreach collection="tagIds" item="tagId" separator=",">
-      (#{blogId},#{tagId})
-    </foreach>
-  </insert>
+    <!--int saveBlogAndTag(@Param("blogId") int blogId,@Param("tagIds") List<Integer> tagIds);-->
+    <insert id="saveBlogAndTag">
+        insert into t_blog_tag(blog_id,tag_id) values
+        <foreach collection="tagIds" item="tagId" separator=",">
+            (#{blogId},#{tagId})
+        </foreach>
+    </insert>
 
-  <!--int deleteTagByBlogId(Integer id);-->
-  <delete id="deleteTagByBlogId" parameterType="java.lang.Integer">
-    delete from t_blog_tag
-    where blog_id = #{id,jdbcType=INTEGER}
-  </delete>
+    <!--int deleteTagByBlogId(Integer id);-->
+    <delete id="deleteTagByBlogId" parameterType="java.lang.Integer">
+        delete from t_blog_tag
+        where blog_id = #{id,jdbcType=INTEGER}
+    </delete>
 
 </mapper>

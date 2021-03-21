@@ -3,7 +3,7 @@ package com.xzm.blog.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Blog implements Serializable{
+public class Blog implements Serializable {
     private Integer id;
 
     private String title;
@@ -15,7 +15,7 @@ public class Blog implements Serializable{
     private String firstPicture;
 
     private String flag;
-    
+
     private Boolean appreciation;
 
     private Boolean commentabled;

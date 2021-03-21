@@ -10,7 +10,7 @@ public interface CommentService {
 
     int saveComment(Comment comment);
 
-    List<Comment> selectAll( );
+    List<Comment> selectAll();
 
     int deleteByPrimaryKey(Integer id);
 

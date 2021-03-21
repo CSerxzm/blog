@@ -19,7 +19,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
-    @Resource(name="commentRedisTemplate")
+    @Resource(name = "commentRedisTemplate")
     private RedisTemplate commentRedisTemplate;
 
     @Autowired
@@ -28,32 +28,32 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> selectCommentByBlogId(Integer blogId) {
         List<Comment> comments;
-        if(redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS+blogId)){
-            comments=commentMapper.selectByBlogId(blogId);
-            if(!comments.isEmpty()){
-                redisUtils.setValueList(commentRedisTemplate,BlogConstant.COMMENTS+blogId,comments);
+        if (redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS + blogId)) {
+            comments = commentMapper.selectByBlogId(blogId);
+            if (!comments.isEmpty()) {
+                redisUtils.setValueList(commentRedisTemplate, BlogConstant.COMMENTS + blogId, comments);
             }
-        }else{
-            comments = redisUtils.getValueList(commentRedisTemplate, BlogConstant.COMMENTS+blogId);
+        } else {
+            comments = redisUtils.getValueList(commentRedisTemplate, BlogConstant.COMMENTS + blogId);
         }
         return comments;
     }
 
     @Transactional
     @Override
-    public int saveComment(Comment comment){
-        redisUtils.removeValue(commentRedisTemplate,BlogConstant.COMMENTS+comment.getBlogId());
+    public int saveComment(Comment comment) {
+        redisUtils.removeValue(commentRedisTemplate, BlogConstant.COMMENTS + comment.getBlogId());
         comment.setCreateTime(new Date());
         return commentMapper.insertSelective(comment);
     }
 
     @Override
-    public List<Comment> selectAll( ){
+    public List<Comment> selectAll() {
         List<Comment> comments;
-        if(redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS)){
-            comments=commentMapper.selectAll();
-            redisUtils.setValueList(commentRedisTemplate,BlogConstant.COMMENTS,comments);
-        }else{
+        if (redisUtils.isEmpty(commentRedisTemplate, BlogConstant.COMMENTS)) {
+            comments = commentMapper.selectAll();
+            redisUtils.setValueList(commentRedisTemplate, BlogConstant.COMMENTS, comments);
+        } else {
             comments = redisUtils.getValueList(commentRedisTemplate, BlogConstant.COMMENTS);
         }
         return comments;
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        redisUtils.removeValue(commentRedisTemplate,BlogConstant.COMMENTS);
+        redisUtils.removeValue(commentRedisTemplate, BlogConstant.COMMENTS);
         return commentMapper.deleteByPrimaryKey(id);
     }
 }

@@ -42,7 +42,7 @@
         </javaClientGenerator>
 
         <!-- 指定数据库表，要生成哪些表，如对应的model名称是Employee-->
-       <table tableName="t_blog" domainObjectName="Blog"
+        <table tableName="t_blog" domainObjectName="Blog"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

@@ -26,14 +26,14 @@ public class TypeShowController {
     private BlogService blogService;
 
     @GetMapping("/types/{id}")
-    public String types(@RequestParam(value="page",defaultValue = "1") int pageIndex, @PathVariable Integer id, Model model) {
+    public String types(@RequestParam(value = "page", defaultValue = "1") int pageIndex, @PathVariable Integer id, Model model) {
         List<Type> types = typeService.selectTypeTop(BlogConstant.SIZEALL);
-        if ( ! types.isEmpty() && id == -1 ) {
-           id = types.get(0).getId();
+        if (!types.isEmpty() && id == -1) {
+            id = types.get(0).getId();
         }
-        Page page = PageHelper.startPage(pageIndex,BlogConstant.PAGESIZE);
+        Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZE);
         model.addAttribute(BlogConstant.BLOGS, blogService.selectBlogByTypeId(id));
-        model.addAttribute(BlogConstant.PAGE,page);
+        model.addAttribute(BlogConstant.PAGE, page);
         model.addAttribute(BlogConstant.TYPES, types);
         model.addAttribute(BlogConstant.ACTIVETYPEID, id);
         return "types";

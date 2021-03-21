@@ -18,6 +18,8 @@ public interface TypeMapper {
     int updateByPrimaryKey(Type record);
 
     List<Type> selectAll();
+
     List<Type> selectTypeTop(Integer size);
+
     Type selectTypeByName(String name);
 }

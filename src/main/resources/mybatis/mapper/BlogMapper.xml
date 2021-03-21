@@ -2,212 +2,212 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xzm.blog.dao.BlogMapper">
     <resultMap id="BaseResultMap" type="com.xzm.blog.bean.Blog">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="first_picture" jdbcType="VARCHAR" property="firstPicture" />
-    <result column="flag" jdbcType="VARCHAR" property="flag" />
-    <result column="appreciation" jdbcType="BIT" property="appreciation" />
-    <result column="commentabled" jdbcType="BIT" property="commentabled" />
-    <result column="recommend" jdbcType="BIT" property="recommend" />
-    <result column="share_statement" jdbcType="BIT" property="shareStatement" />
-    <result column="published" jdbcType="BIT" property="published" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="views" jdbcType="INTEGER" property="views" />
-    <association property="user"
-                 select="com.xzm.blog.dao.UserMapper.selectByPrimaryKey"
-                 column="user_id">
-    </association>
-    <association property="type"
-                 select="com.xzm.blog.dao.TypeMapper.selectByPrimaryKey"
-                 column="type_id">
-    </association>
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="first_picture" jdbcType="VARCHAR" property="firstPicture"/>
+        <result column="flag" jdbcType="VARCHAR" property="flag"/>
+        <result column="appreciation" jdbcType="BIT" property="appreciation"/>
+        <result column="commentabled" jdbcType="BIT" property="commentabled"/>
+        <result column="recommend" jdbcType="BIT" property="recommend"/>
+        <result column="share_statement" jdbcType="BIT" property="shareStatement"/>
+        <result column="published" jdbcType="BIT" property="published"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="views" jdbcType="INTEGER" property="views"/>
+        <association property="user"
+                     select="com.xzm.blog.dao.UserMapper.selectByPrimaryKey"
+                     column="user_id">
+        </association>
+        <association property="type"
+                     select="com.xzm.blog.dao.TypeMapper.selectByPrimaryKey"
+                     column="type_id">
+        </association>
     </resultMap>
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xzm.blog.bean.Blog">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, title, user_id, description, first_picture, flag, appreciation, commentabled,
-    recommend, share_statement, published, create_time, update_time, views, type_id
+        id, title, user_id, description, first_picture, flag, appreciation, commentabled,
+        recommend, share_statement, published, create_time, update_time, views, type_id
     </sql>
     <sql id="Blob_Column_List">
-    content
+        content
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_blog
-    where id = #{id,jdbcType=INTEGER}
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_blog
+        where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_blog
-    where id = #{id,jdbcType=INTEGER}
+        delete from t_blog
+        where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.xzm.blog.bean.Blog" useGeneratedKeys="true" keyProperty="id">
-    insert into t_blog (id, title, user_id,
-      description, first_picture, flag,
-      appreciation, commentabled, recommend,
-      share_statement, published, create_time,
-      update_time, views, type_id,
-      content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{user.id,jdbcType=INTEGER},
-      #{description,jdbcType=VARCHAR}, #{firstPicture,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR},
-      #{appreciation,jdbcType=BIT}, #{commentabled,jdbcType=BIT}, #{recommend,jdbcType=BIT},
-      #{shareStatement,jdbcType=BIT}, #{published,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP},
-      #{updateTime,jdbcType=TIMESTAMP}, #{views,jdbcType=INTEGER}, #{type.id,jdbcType=INTEGER},
-      #{content,jdbcType=LONGVARCHAR})
+        insert into t_blog (id, title, user_id,
+        description, first_picture, flag,
+        appreciation, commentabled, recommend,
+        share_statement, published, create_time,
+        update_time, views, type_id,
+        content)
+        values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{user.id,jdbcType=INTEGER},
+        #{description,jdbcType=VARCHAR}, #{firstPicture,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR},
+        #{appreciation,jdbcType=BIT}, #{commentabled,jdbcType=BIT}, #{recommend,jdbcType=BIT},
+        #{shareStatement,jdbcType=BIT}, #{published,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{views,jdbcType=INTEGER}, #{type.id,jdbcType=INTEGER},
+        #{content,jdbcType=LONGVARCHAR})
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.xzm.blog.bean.Blog">
-    update t_blog
-    <set>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="user!=null and user.id != null">
-        user_id = #{user.id,jdbcType=INTEGER},
-      </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="firstPicture != null">
-        first_picture = #{firstPicture,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        flag = #{flag,jdbcType=VARCHAR},
-      </if>
-      <if test="1==1">
-        appreciation = #{appreciation,jdbcType=BIT},
-      </if>
-      <if test="commentabled != null">
-        commentabled = #{commentabled,jdbcType=BIT},
-      </if>
-      <if test="recommend != null">
-        recommend = #{recommend,jdbcType=BIT},
-      </if>
-      <if test="shareStatement != null">
-        share_statement = #{shareStatement,jdbcType=BIT},
-      </if>
-      <if test="published != null">
-        published = #{published,jdbcType=BIT},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="views != null">
-        views = #{views,jdbcType=INTEGER},
-      </if>
-      <if test="type.id != null">
-        type_id = #{type.id,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
+        update t_blog
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="user!=null and user.id != null">
+                user_id = #{user.id,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="firstPicture != null">
+                first_picture = #{firstPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="flag != null">
+                flag = #{flag,jdbcType=VARCHAR},
+            </if>
+            <if test="1==1">
+                appreciation = #{appreciation,jdbcType=BIT},
+            </if>
+            <if test="commentabled != null">
+                commentabled = #{commentabled,jdbcType=BIT},
+            </if>
+            <if test="recommend != null">
+                recommend = #{recommend,jdbcType=BIT},
+            </if>
+            <if test="shareStatement != null">
+                share_statement = #{shareStatement,jdbcType=BIT},
+            </if>
+            <if test="published != null">
+                published = #{published,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="views != null">
+                views = #{views,jdbcType=INTEGER},
+            </if>
+            <if test="type.id != null">
+                type_id = #{type.id,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.Blog">
-    update t_blog
-    set title = #{title,jdbcType=VARCHAR},
-      user_id = #{user.id,jdbcType=INTEGER},
-      description = #{description,jdbcType=VARCHAR},
-      first_picture = #{firstPicture,jdbcType=VARCHAR},
-      flag = #{flag,jdbcType=VARCHAR},
-      appreciation = #{appreciation,jdbcType=BIT},
-      commentabled = #{commentabled,jdbcType=BIT},
-      recommend = #{recommend,jdbcType=BIT},
-      share_statement = #{shareStatement,jdbcType=BIT},
-      published = #{published,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      views = #{views,jdbcType=INTEGER},
-      type_id = #{type.id,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+        update t_blog
+        set title = #{title,jdbcType=VARCHAR},
+        user_id = #{user.id,jdbcType=INTEGER},
+        description = #{description,jdbcType=VARCHAR},
+        first_picture = #{firstPicture,jdbcType=VARCHAR},
+        flag = #{flag,jdbcType=VARCHAR},
+        appreciation = #{appreciation,jdbcType=BIT},
+        commentabled = #{commentabled,jdbcType=BIT},
+        recommend = #{recommend,jdbcType=BIT},
+        share_statement = #{shareStatement,jdbcType=BIT},
+        published = #{published,jdbcType=BIT},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        views = #{views,jdbcType=INTEGER},
+        type_id = #{type.id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </update>
     <!--List<Blog> selectAll();-->
     <select id="selectAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog where published=true order by create_time desc
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog where published=true order by create_time desc
     </select>
     <!--List<Blog> selectAllAdmin();-->
     <select id="selectAllAdmin" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog order by create_time desc
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog order by create_time desc
     </select>
     <!--int count();-->
     <select id="count" resultType="integer">
-    select count(*) from t_blog where published=true
+        select count(*) from t_blog where published=true
     </select>
     <!--public List<Blog> selectRecommendBlogTop(Integer size)-->
     <select id="selectRecommendBlogTop" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog where published=true and recommend = true order by create_time desc limit #{size}
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog where published=true and recommend = true order by create_time desc limit #{size}
     </select>
     <!--public List<Blog> selectHotBlogTop(Integer size)-->
     <select id="selectHotBlogTop" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog where published=true order by views desc,create_time desc limit #{size}
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog where published=true order by views desc,create_time desc limit #{size}
     </select>
     <!--List<String> findGroupYear();-->
     <select id="selectGroupYear" resultType="string">
-    select DISTINCT(YEAR(create_time)) as year from t_blog order by year desc
+        select DISTINCT(YEAR(create_time)) as year from t_blog order by year desc
     </select>
     <!--List<Blog> findByYear(String year);-->
     <select id="selectByYear" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog where  published=true and YEAR(create_time)=#{year} order by create_time desc
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog where published=true and YEAR(create_time)=#{year} order by create_time desc
     </select>
     <!--该函数只用于后台-->
     <!--    List<Blog> selectByQuery(Map<String,Object> map);-->
     <select id="selectByQuery" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog
-    <where>
-      <if test="id!=null">
-        id=#{id}
-      </if>
-      <if test="title!=null and title!=''">
-        or title like '%${title}%'
-      </if>
-      <if test="type_id!=null and type_id!=''">
-        or type_id = #{type_id}
-      </if>
-      <if test="recommend!=null and recommend!=0">
-        or recommend = #{recommend}
-      </if>
-      <if test="year!=null and year!=''">
-        or YEAR(update_time)=#{year}
-      </if>
-    </where>
-     order by update_time desc
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="title!=null and title!=''">
+                or title like '%${title}%'
+            </if>
+            <if test="type_id!=null and type_id!=''">
+                or type_id = #{type_id}
+            </if>
+            <if test="recommend!=null and recommend!=0">
+                or recommend = #{recommend}
+            </if>
+            <if test="year!=null and year!=''">
+                or YEAR(update_time)=#{year}
+            </if>
+        </where>
+        order by update_time desc
     </select>
     <!-- List<Blog> selectByTitlelike(String title);-->
     <select id="selectByTitlelike" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_blog where published=true and title like '%${title}%'
+        select
+        <include refid="Base_Column_List"/>
+        from t_blog where published=true and title like '%${title}%'
     </select>
     <!--List<Blog> selectBlogByTypeId(Integer id);-->
     <select id="selectBlogByTypeId" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_blog where published=true and type_id=#{id}
     </select>
     <!--List<Blog> selectByIds(@Param("ids") List<Integer> ids);-->
     <select id="selectByIds" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from t_blog
         <foreach collection="ids" item="item_id" separator=","
                  open="where id in(" close=")">

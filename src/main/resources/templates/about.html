@@ -2,176 +2,179 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:replace="_fragments :: head(~{::title})">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>没有代码的程序</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-  <link rel="stylesheet" href="../static/css/me.css">
-  <link rel="stylesheet" href="../static/css/about.css">
-  <link rel="shortcut icon" href="../static/images/logo.png" th:href="@{/images/logo.png}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>没有代码的程序</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="../static/css/about.css">
+    <link rel="shortcut icon" href="../static/images/logo.png" th:href="@{/images/logo.png}"/>
 </head>
 
 <body>
-  <!--导航-->
-  <nav th:replace="_fragments :: menu(n=5)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
+<!--导航-->
+<nav th:replace="_fragments :: menu(n=5)" class="ui inverted attached segment m-padded-tb-small m-shadow-small">
 
-  </nav>
+</nav>
 
-  <!--中间内容-->
-  <div class="m-container m-padded-tb-big animated fadeIn content_container">
+<!--中间内容-->
+<div class="m-container m-padded-tb-big animated fadeIn content_container">
     <div class="ui container">
-      <div class="ui stackable grid">
-        <div class="ui eleven wide column">
-          <div class="column">
-            <div class="ui raised segment">
-              <div class="column large">
-                <img class="ui avatar tiny image" src="../static/images/logo.png" th:src="@{/images/logo.png}">
-                <span class="title">CSerxzm</span>
-              </div>
-              <a class="ui green ribbon large label m-margin-top">基本信息</a>
-              <div class="ui middle m-margin-top-tiny m-padded-tb aligned three column grid">
-                <div class="column">性别: 男</div>
-                <div class="column">籍贯: 四川省广元市</div>
-                <div class="column">政治面貌: 中共党员</div>
-              </div>
-              <a class="ui orange ribbon large label">教育经历</a>
-              <div class="m-padded-tb">
-                <table class="ui celled table">
-                  <tr>
-                    <td>2016年09月-2020年7月</td>
-                    <td>合肥**大学</td>
-                    <td>计算机科学与技术</td>
-                    <td>本科</td>
-                  </tr>
-                  <tr>
-                    <td>2020年09月-至今</td>
-                    <td>华中**大学</td>
-                    <td>计算机科学与技术</td>
-                    <td>硕士</td>
-                  </tr>
-                </table>
-              </div>
-              <a class="ui blue ribbon large label">项目经历</a>
-              <div class="ui relaxed divided list m-padded-tb">
-                <div class="item">
-                  <div class="ui middle two column grid m-padded-tb-small">
-                    <span class="column">基于信号强度的WiFi室内定位导航</span>
-                    <span class="column">2018年5月-2019年5月</span>
-                  </div>
-                  <div class="m-padded-tb-small">完成创新创业项目基于信号强度的WiFi室内定位导航。通过对新安教学楼的wifi信号进行采集，利用支持向量机，
-                    对数据进行相关的清洗，达到房间级的定位，同时兼顾了室内外的衔接，使用高德地图API实现室外的导航。
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="ui middle two column grid m-padded-tb-small">
-                    <span class="column">网易新闻网</span>
-                    <span class="column">2018年8月-2018年10月</span>
-                  </div>
-                  <div class="m-padded-tb-small">练习使用SSM框架，设计编码“网义新闻网”WEB开发，提供用户端和管理端，能够动态的发布时事新闻，评论新闻等，
-                    为用户提供了解热点实事的平台。
-                  </div>
-                  <a href="https://github.com/CSerxzm/news" target="_Blank"><i
-                      class="large github middle aligned icon"></i>https://github.com/CSerxzm/news</a>
-                </div>
-                <div class="item">
-                  <div class="ui middle two column grid m-padded-tb-small">
-                    <span class="column">物联网垃圾箱</span>
-                    <span class="column">2019年5月-2020年5月</span>
-                  </div>
-                  <div class="m-padded-tb-small">完成创新创业项目基于物联网的公共智能垃圾箱系统设计与分析，采用C51单片机作为控制器，使用红外热释传感器，
-                    步进电机以及ESP8266等感应器件和ESP8266传输数据，并完成相对应的管理段，实现垃圾箱的实时监控。
-                  </div>
-                  <a href="https://github.com/CSerxzm/smart_trash_can" target="_Blank"><i
-                      class="large github middle aligned icon"></i>https://github.com/CSerxzm/smart_trash_can</a>
-                </div>
-              </div>
-              <a class="ui teal ribbon large label">工作经历</a>
-              <div class="ui relaxed divided list m-padded-tb">
-                <div class="item">
-                  <div class="content">
-                    <div class="ui middle three column grid m-padded-tb-small">
-                      <span class="column">2016年-2017年</span>
-                      <span class="column">XXXXXX公司</span>
-                      <span class="column">实习</span>
+        <div class="ui stackable grid">
+            <div class="ui eleven wide column">
+                <div class="column">
+                    <div class="ui raised segment">
+                        <div class="column large">
+                            <img class="ui avatar tiny image" src="../static/images/logo.png"
+                                 th:src="@{/images/logo.png}">
+                            <span class="title">CSerxzm</span>
+                        </div>
+                        <a class="ui green ribbon large label m-margin-top">基本信息</a>
+                        <div class="ui middle m-margin-top-tiny m-padded-tb aligned three column grid">
+                            <div class="column">性别: 男</div>
+                            <div class="column">籍贯: 四川省广元市</div>
+                            <div class="column">政治面貌: 中共党员</div>
+                        </div>
+                        <a class="ui orange ribbon large label">教育经历</a>
+                        <div class="m-padded-tb">
+                            <table class="ui celled table">
+                                <tr>
+                                    <td>2016年09月-2020年7月</td>
+                                    <td>合肥**大学</td>
+                                    <td>计算机科学与技术</td>
+                                    <td>本科</td>
+                                </tr>
+                                <tr>
+                                    <td>2020年09月-至今</td>
+                                    <td>华中**大学</td>
+                                    <td>计算机科学与技术</td>
+                                    <td>硕士</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <a class="ui blue ribbon large label">项目经历</a>
+                        <div class="ui relaxed divided list m-padded-tb">
+                            <div class="item">
+                                <div class="ui middle two column grid m-padded-tb-small">
+                                    <span class="column">基于信号强度的WiFi室内定位导航</span>
+                                    <span class="column">2018年5月-2019年5月</span>
+                                </div>
+                                <div class="m-padded-tb-small">完成创新创业项目基于信号强度的WiFi室内定位导航。通过对新安教学楼的wifi信号进行采集，利用支持向量机，
+                                    对数据进行相关的清洗，达到房间级的定位，同时兼顾了室内外的衔接，使用高德地图API实现室外的导航。
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="ui middle two column grid m-padded-tb-small">
+                                    <span class="column">网易新闻网</span>
+                                    <span class="column">2018年8月-2018年10月</span>
+                                </div>
+                                <div class="m-padded-tb-small">练习使用SSM框架，设计编码“网义新闻网”WEB开发，提供用户端和管理端，能够动态的发布时事新闻，评论新闻等，
+                                    为用户提供了解热点实事的平台。
+                                </div>
+                                <a href="https://github.com/CSerxzm/news" target="_Blank"><i
+                                        class="large github middle aligned icon"></i>https://github.com/CSerxzm/news</a>
+                            </div>
+                            <div class="item">
+                                <div class="ui middle two column grid m-padded-tb-small">
+                                    <span class="column">物联网垃圾箱</span>
+                                    <span class="column">2019年5月-2020年5月</span>
+                                </div>
+                                <div class="m-padded-tb-small">完成创新创业项目基于物联网的公共智能垃圾箱系统设计与分析，采用C51单片机作为控制器，使用红外热释传感器，
+                                    步进电机以及ESP8266等感应器件和ESP8266传输数据，并完成相对应的管理段，实现垃圾箱的实时监控。
+                                </div>
+                                <a href="https://github.com/CSerxzm/smart_trash_can" target="_Blank"><i
+                                        class="large github middle aligned icon"></i>https://github.com/CSerxzm/smart_trash_can</a>
+                            </div>
+                        </div>
+                        <a class="ui teal ribbon large label">工作经历</a>
+                        <div class="ui relaxed divided list m-padded-tb">
+                            <div class="item">
+                                <div class="content">
+                                    <div class="ui middle three column grid m-padded-tb-small">
+                                        <span class="column">2016年-2017年</span>
+                                        <span class="column">XXXXXX公司</span>
+                                        <span class="column">实习</span>
+                                    </div>
+                                    <div class="m-padded-tb-small">在公司中担任测试开发岗，完成其文档和相关测试代码的编写，</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="content">
+                                    <div class="ui middle three column grid m-padded-tb-small">
+                                        <span class="column">2016年-2017年</span>
+                                        <span class="column">XXXXXX公司</span>
+                                        <span class="column">实习</span>
+                                    </div>
+                                    <div class="m-padded-tb-small">在公司中担任测试开发岗，完成其文档和相关测试代码的编写，</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="m-padded-tb-small">在公司中担任测试开发岗，完成其文档和相关测试代码的编写，</div>
-                  </div>
                 </div>
-                <div class="item">
-                  <div class="content">
-                    <div class="ui middle three column grid m-padded-tb-small">
-                      <span class="column">2016年-2017年</span>
-                      <span class="column">XXXXXX公司</span>
-                      <span class="column">实习</span>
-                    </div>
-                    <div class="m-padded-tb-small">在公司中担任测试开发岗，完成其文档和相关测试代码的编写，</div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="five wide column">
-          <div class="ui top attached segment">
-            <div class="ui header">关于我</div>
-          </div>
-          <div class="ui attached segment">
-            <p class="m-text">CSerxzm，在校研究生.</p>
-            <p class="m-text">热爱编程，喜欢折腾，正在探索高效学习编程技术的方法...</p>
-          </div>
-          <div class="ui attached segment">
-            <div class="ui orange basic left pointing label m-margin-tb-tiny">编程</div>
-            <div class="ui orange basic left pointing label m-margin-tb-tiny">电影</div>
-            <div class="ui orange basic left pointing label m-margin-tb-tiny">思考</div>
-            <div class="ui orange basic left pointing label m-margin-tb-tiny">拍照</div>
-            <div class="ui orange basic left pointing label m-margin-tb-tiny">运动</div>
-          </div>
-          <div class="ui attached segment">
-            <div class="ui blue basic left pointing label m-margin-tb-tiny">Java</div>
-            <div class="ui blue basic left pointing label m-margin-tb-tiny">C</div>
-            <div class="ui blue basic left pointing label m-margin-tb-tiny">HTML</div>
-            <div class="ui blue basic left pointing label m-margin-tb-tiny">MYSQL</div>
-            <div class="ui blue basic left pointing label m-margin-tb-tiny">...</div>
-          </div>
-          <div class="ui bottom attached segment">
-            <a href="https://github.com/CSerxzm" target="_Blank" class="ui circular icon button"><i
-                class="github icon"></i></a>
-            <a href="#" class="ui wechat circular icon button" data-content="15284875380"
-              data-position="bottom center"><i class="weixin icon"></i></a>
-            <a href="#" class="ui qq circular icon button" data-content="3052720966" data-position="bottom center"><i
-                class="qq icon"></i></a>
-          </div>
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">CSerxzm，在校研究生.</p>
+                    <p class="m-text">热爱编程，喜欢折腾，正在探索高效学习编程技术的方法...</p>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">编程</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">电影</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">思考</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">拍照</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">运动</div>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny">Java</div>
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny">C</div>
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny">HTML</div>
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny">MYSQL</div>
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny">...</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <a href="https://github.com/CSerxzm" target="_Blank" class="ui circular icon button"><i
+                            class="github icon"></i></a>
+                    <a href="#" class="ui wechat circular icon button" data-content="15284875380"
+                       data-position="bottom center"><i class="weixin icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="3052720966"
+                       data-position="bottom center"><i
+                            class="qq icon"></i></a>
+                </div>
 
-          <div class="ui wechat-qr flowing popup transition hidden">
-            <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" alt="" class="ui rounded image"
-              style="width: 110px">
-          </div>
+                <div class="ui wechat-qr flowing popup transition hidden">
+                    <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" alt=""
+                         class="ui rounded image"
+                         style="width: 110px">
+                </div>
+            </div>
         </div>
-      </div>
 
     </div>
-  </div>
+</div>
 
-  <!--底部footer-->
-  <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-big">
+<!--底部footer-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-big">
 
-  </footer>
+</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
-  <script>
+<script>
     $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide');
+        $('.m-item').toggleClass('m-mobile-hide');
     });
 
     $('.wechat').popup({
-      popup: $('.wechat-qr'),
-      position: 'bottom center'
+        popup: $('.wechat-qr'),
+        position: 'bottom center'
     });
     $('.qq').popup();
 
-  </script>
+</script>
 </body>
 
 </html>

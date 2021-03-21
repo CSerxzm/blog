@@ -26,5 +26,5 @@ public interface TagService {
 
     List<Tag> selectTagByBlogId(Integer id);
 
-    int saveBlogAndTag(int blogId,List<Integer> tagIds);
+    int saveBlogAndTag(int blogId, List<Integer> tagIds);
 }

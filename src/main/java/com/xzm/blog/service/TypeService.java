@@ -16,7 +16,7 @@ public interface TypeService {
 
     List<Type> selectTypeTop(Integer size);
 
-    int updateType(Integer id,Type type);
+    int updateType(Integer id, Type type);
 
     int deleteType(Integer id);
 

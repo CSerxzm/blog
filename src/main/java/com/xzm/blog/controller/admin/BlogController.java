@@ -31,19 +31,19 @@ public class BlogController {
     private TagService tagService;
 
     @GetMapping("/blogs")
-    public String blogs(@RequestParam(value="page",defaultValue = "1") int pageIndex, Model model) {
+    public String blogs(@RequestParam(value = "page", defaultValue = "1") int pageIndex, Model model) {
         model.addAttribute(BlogConstant.TYPES, typeService.selectType());
         Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZEADMIN);
         model.addAttribute(BlogConstant.BLOGS, blogService.selectBlogAdmin());
-        model.addAttribute(BlogConstant.PAGE,page);
+        model.addAttribute(BlogConstant.PAGE, page);
         return "admin/blogs";
     }
 
     @PostMapping("/blogs/search")
-    public String search(@RequestParam(value="title",required=false) String title,
-                         @RequestParam(value="type_id",required=false) Integer type_id,
-                         @RequestParam(value="recommend",required=false) boolean recommend,Model model) {
-        List<Blog> blogs = blogService.selectByTitleTypeandRecommend(title,type_id,recommend);
+    public String search(@RequestParam(value = "title", required = false) String title,
+                         @RequestParam(value = "type_id", required = false) Integer type_id,
+                         @RequestParam(value = "recommend", required = false) boolean recommend, Model model) {
+        List<Blog> blogs = blogService.selectByTitleTypeandRecommend(title, type_id, recommend);
         model.addAttribute(BlogConstant.BLOGS, blogs);
         return "admin/blogs :: blogList";
     }
@@ -64,7 +64,7 @@ public class BlogController {
         Blog blog = blogService.selectBlog(id);
         List<Tag> tags = tagService.selectTagByBlogId(blog.getId());
         blog.setTagIds(tagsToIds(tags));
-        model.addAttribute(BlogConstant.ONEBLOG,blog);
+        model.addAttribute(BlogConstant.ONEBLOG, blog);
         return "admin/blogs-input";
     }
 
@@ -87,12 +87,11 @@ public class BlogController {
     }
 
 
-
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
         int b;
         if (blog.getId() == null) {
-            User user =(User) session.getAttribute(BlogConstant.USER);
+            User user = (User) session.getAttribute(BlogConstant.USER);
             blog.setUser(user);
             b = blogService.saveBlog(blog);
         } else {
@@ -108,12 +107,11 @@ public class BlogController {
 
 
     @GetMapping("/blogs/{id}/delete")
-    public String delete(@PathVariable Integer id,RedirectAttributes attributes) {
+    public String delete(@PathVariable Integer id, RedirectAttributes attributes) {
         blogService.deleteBlog(id);
         attributes.addFlashAttribute(BlogConstant.MESSAGE, "删除成功");
         return "redirect:/admin/blogs";
     }
-
 
 
 }

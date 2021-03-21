@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import java.net.UnknownHostException;
 
 @Configuration
-public class RedisConfig{
+public class RedisConfig {
 
     @Bean
     public RedisTemplate<Object, Blog> blogRedisTemplate(
@@ -30,7 +30,7 @@ public class RedisConfig{
 
     @Primary
     @Bean
-    public RedisCacheManager blogCacheManager(RedisTemplate<Object, Blog> blogRedisTemplate){
+    public RedisCacheManager blogCacheManager(RedisTemplate<Object, Blog> blogRedisTemplate) {
         RedisCacheManager cacheManager = new RedisCacheManager(blogRedisTemplate);
         cacheManager.setUsePrefix(true);
         cacheManager.setDefaultExpiration(60);
@@ -49,7 +49,7 @@ public class RedisConfig{
     }
 
     @Bean
-    public RedisCacheManager tagCacheManager(RedisTemplate<Object, Tag> tagRedisTemplate){
+    public RedisCacheManager tagCacheManager(RedisTemplate<Object, Tag> tagRedisTemplate) {
         RedisCacheManager cacheManager = new RedisCacheManager(tagRedisTemplate);
         cacheManager.setUsePrefix(true);
         cacheManager.setDefaultExpiration(60);
@@ -68,7 +68,7 @@ public class RedisConfig{
     }
 
     @Bean
-    public RedisCacheManager typeCacheManager(RedisTemplate<Object, Type> typeRedisTemplate){
+    public RedisCacheManager typeCacheManager(RedisTemplate<Object, Type> typeRedisTemplate) {
         RedisCacheManager cacheManager = new RedisCacheManager(typeRedisTemplate);
         cacheManager.setUsePrefix(true);
         cacheManager.setDefaultExpiration(60);
@@ -87,7 +87,7 @@ public class RedisConfig{
     }
 
     @Bean
-    public RedisCacheManager commentCacheManager(RedisTemplate<Object, Comment> commentRedisTemplate){
+    public RedisCacheManager commentCacheManager(RedisTemplate<Object, Comment> commentRedisTemplate) {
         RedisCacheManager cacheManager = new RedisCacheManager(commentRedisTemplate);
         cacheManager.setUsePrefix(true);
         cacheManager.setDefaultExpiration(60);
@@ -106,7 +106,7 @@ public class RedisConfig{
     }
 
     @Bean
-    public RedisCacheManager integerCacheManager(RedisTemplate<Object, Integer> integerRedisTemplate){
+    public RedisCacheManager integerCacheManager(RedisTemplate<Object, Integer> integerRedisTemplate) {
         RedisCacheManager cacheManager = new RedisCacheManager(integerRedisTemplate);
         cacheManager.setUsePrefix(true);
         cacheManager.setDefaultExpiration(60);

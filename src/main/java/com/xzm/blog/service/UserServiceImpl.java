@@ -14,12 +14,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkUser(String username, String password) {
-        password= MD5Utils.code(password);
-        User user = userMapper.checkUser(username,password);
-        if(user==null){
+        password = MD5Utils.code(password);
+        User user = userMapper.checkUser(username, password);
+        if (user == null) {
             return null;
-        }
-        else{
+        } else {
             return user;
         }
     }

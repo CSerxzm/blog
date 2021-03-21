@@ -18,7 +18,8 @@ public class LogAspect {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Pointcut("execution(* com.xzm.blog.controller.*.*(..))")
-    public void log() {}
+    public void log() {
+    }
 
 
     @Before("log()")
@@ -37,7 +38,7 @@ public class LogAspect {
     public void doAfter() {
     }
 
-    @AfterReturning(returning = "result",pointcut = "log()")
+    @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterRuturn(Object result) {
         logger.info("Result : {}", result);
     }
