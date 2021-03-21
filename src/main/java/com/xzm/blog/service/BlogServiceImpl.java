@@ -51,7 +51,8 @@ public class BlogServiceImpl implements BlogService {
             //存在该blog
             RedisUtils.hIncrement(BlogConstant.ONEBLOG + id,"views");
             blog = JSON.parseObject(RedisUtils.hGet(BlogConstant.ONEBLOG + id,"blog").toString(),Blog.class);
-            blog.setViews(blog.getViews());
+            String views = (String)RedisUtils.hGet(BlogConstant.ONEBLOG + id,"views").toString();
+            blog.setViews(Integer.valueOf(views));
         }
         return blog;
     }
@@ -198,9 +199,8 @@ public class BlogServiceImpl implements BlogService {
         Set<String> keys = RedisUtils.getKeys("blog*");
         for(String key:keys){
             String views = ((String) RedisUtils.hGet(key, "views"));
-            Integer integer = Integer.valueOf(views);
             String id = key.replaceAll(".*[^\\d](?=(\\d+))","");
-            blogMapper.saveBlogViews(Integer.valueOf(id),integer);
+            blogMapper.saveBlogViews(Integer.valueOf(id),Integer.valueOf(views));
             RedisUtils.del(key);
         }
         return true;

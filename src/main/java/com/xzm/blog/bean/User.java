@@ -1,7 +1,5 @@
 package com.xzm.blog.bean;
 
-import org.springframework.data.annotation.Transient;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +9,7 @@ public class User implements Serializable {
 
     private String username;
 
-    private String password;
+    private transient String password;
 
     private String nickname;
 
@@ -21,7 +19,7 @@ public class User implements Serializable {
 
     private String email;
 
-    private Integer usertype;
+    private transient Integer usertype;
 
     public User() {
     }
@@ -53,7 +51,6 @@ public class User implements Serializable {
         this.username = username == null ? null : username.trim();
     }
 
-    @Transient
     public String getPassword() {
         return password;
     }
