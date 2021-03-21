@@ -108,7 +108,6 @@ public class BlogServiceImpl implements BlogService {
         return map;
     }
 
-    @Cacheable(value = "blog", key = "#root.methodName", cacheManager = "integerCacheManager")
     @Override
     public int countBlog() {
         return blogMapper.count();
@@ -140,7 +139,6 @@ public class BlogServiceImpl implements BlogService {
         return res;
     }
 
-    @CacheEvict(value = "blog", key = "#id")
     @Transactional
     @Override
     public int updateBlog(Integer id, Blog blog) {
