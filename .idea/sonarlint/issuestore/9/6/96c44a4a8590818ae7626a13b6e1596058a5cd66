@@ -1,4 +1,9 @@
 
-qsquid:S1192>"UDefine a constant instead of duplicating this literal "redirect:/admin/tags" 3 times.(¨í›¿øÿÿÿÿ
-msquid:S1192%"QDefine a constant instead of duplicating this literal "admin/tags-input" 4 times.(ÖìÃÉûÿÿÿÿ
-ksquid:S3252"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(È·ë—üÿÿÿÿ
+Q
+java:S3740"/Provide the parametrized type for this generic.(È·ë—üÿÿÿÿ8œä†/
+w
+java:S1192="UDefine a constant instead of duplicating this literal "redirect:/admin/tags" 3 times.(¨í›¿øÿÿÿÿ8œä†/
+s
+java:S1192$"QDefine a constant instead of duplicating this literal "admin/tags-input" 4 times.(ÖìÃÉûÿÿÿÿ8œä†/
+q
+java:S3252"OUse static access with "com.github.pagehelper.page.PageMethod" for "startPage".(È·ë—üÿÿÿÿ8œä†/

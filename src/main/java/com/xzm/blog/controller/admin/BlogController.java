@@ -2,6 +2,7 @@ package com.xzm.blog.controller.admin;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xzm.blog.NotFoundException;
 import com.xzm.blog.bean.Blog;
 import com.xzm.blog.bean.Tag;
 import com.xzm.blog.bean.User;
@@ -88,7 +89,7 @@ public class BlogController {
 
 
     @PostMapping("/blogs")
-    public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
+    public String post(Blog blog, RedirectAttributes attributes, HttpSession session) throws NotFoundException {
         int b;
         if (blog.getId() == null) {
             User user = (User) session.getAttribute(BlogConstant.USER);

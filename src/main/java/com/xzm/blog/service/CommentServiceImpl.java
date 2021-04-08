@@ -1,8 +1,6 @@
 package com.xzm.blog.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.xzm.blog.bean.Comment;
 import com.xzm.blog.util.RedisUtils;
 import com.xzm.blog.dao.CommentMapper;
@@ -21,15 +19,16 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
     @Override
-    public List<Object> selectCommentByBlogId(Integer blogId) {
-        List<Object> comments;
+    public List<Comment> selectCommentByBlogId(Integer blogId) {
+        List<Comment> comments;
         if (RedisUtils.isEmpty(BlogConstant.COMMENTS + blogId)) {
             comments = commentMapper.selectByBlogId(blogId);
             if (!comments.isEmpty()) {
-                RedisUtils.lPushAll(BlogConstant.COMMENTS + blogId, comments);
+                String s = JSON.toJSONString(comments);
+                RedisUtils.set(BlogConstant.COMMENTS + blogId, s);
             }
         } else {
-            comments = RedisUtils.lGet(BlogConstant.COMMENTS + blogId,0,-1);
+            comments = JSON.parseArray(RedisUtils.get(BlogConstant.COMMENTS + blogId).toString(), Comment.class);
         }
         return comments;
     }
@@ -48,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
         if (RedisUtils.isEmpty(BlogConstant.COMMENTS)) {
             comments = commentMapper.selectAll();
             String s = JSON.toJSONString(comments);
-            RedisUtils.set(BlogConstant.COMMENTS, comments);
+            RedisUtils.set(BlogConstant.COMMENTS, s);
         } else {
             comments = JSON.parseArray(RedisUtils.get(BlogConstant.COMMENTS).toString(),Comment.class);
         }

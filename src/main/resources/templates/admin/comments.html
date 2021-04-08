@@ -40,10 +40,10 @@
             <tr th:each="comment,iterStat : ${comments}">
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${comment.blogId}">1</td>
-                <td th:text="${comment.nickname}">CSerxzm</td>
-                <td th:text="${comment.email}">3052720966@qq.com</td>
-                <td th:text="${comment.createTime}">3月4日</td>
-                <td th:text="${comment.content}">你好啊</td>
+                <td th:text="${#strings.abbreviate(comment.nickname,20)}">CSerxzm</td>
+                <td th:text="${#strings.abbreviate(comment.email,20)}">3052720966@qq.com</td>
+                <td th:text="${#dates.format(comment.createTime,'yyyy-MM-dd')}">3月4日</td>
+                <td th:text="${#strings.abbreviate(comment.content,10)}">你好啊</td>
                 <td>
                     <a href="#" th:href="@{/admin/comments/{id}/delete(id=${comment.id})}"
                        class="ui mini red basic button">删除</a>

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CommentService {
 
-    List<Object> selectCommentByBlogId(Integer blogId);
+    List<Comment> selectCommentByBlogId(Integer blogId);
 
     int saveComment(Comment comment);
 

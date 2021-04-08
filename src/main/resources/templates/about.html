@@ -26,7 +26,7 @@
                     <div class="ui raised segment">
                         <div class="column large">
                             <img class="ui avatar tiny image" src="../static/images/logo.png"
-                                 th:src="@{/images/logo.png}">
+                                 th:src="@{/images/head.png}">
                             <span class="title">CSerxzm</span>
                         </div>
                         <a class="ui green ribbon large label m-margin-top">基本信息</a>
@@ -45,7 +45,7 @@
                                     <td>本科</td>
                                 </tr>
                                 <tr>
-                                    <td>2020年09月-至今</td>
+                                    <td>2020年09月-2022年7月</td>
                                     <td>华中**大学</td>
                                     <td>计算机科学与技术</td>
                                     <td>硕士</td>
@@ -59,7 +59,7 @@
                                     <span class="column">基于信号强度的WiFi室内定位导航</span>
                                     <span class="column">2018年5月-2019年5月</span>
                                 </div>
-                                <div class="m-padded-tb-small">完成创新创业项目基于信号强度的WiFi室内定位导航。通过对新安教学楼的wifi信号进行采集，利用支持向量机，
+                                <div class="m-padded-tb-small">完成创新创业项目基于信号强度的WiFi室内定位导航。通过对教学楼的wifi信号进行采集，利用支持向量机，
                                     对数据进行相关的清洗，达到房间级的定位，同时兼顾了室内外的衔接，使用高德地图API实现室外的导航。
                                 </div>
                             </div>
@@ -91,13 +91,14 @@
                             <div class="item">
                                 <div class="content">
                                     <div class="ui middle three column grid m-padded-tb-small">
-                                        <span class="column">2016年-2017年</span>
-                                        <span class="column">XXXXXX公司</span>
-                                        <span class="column">实习</span>
+                                        <span class="column">2020年12月-2017年4月</span>
+                                        <span class="column">北京数字政通科技股份有限公司</span>
+                                        <span class="column">Java开发实习</span>
                                     </div>
-                                    <div class="m-padded-tb-small">在公司中担任测试开发岗，完成其文档和相关测试代码的编写，</div>
+                                    <div class="m-padded-tb-small">在公司中根据相关的设计编写相关的业务接口，完成相关业务开发，使用postman等工具测试。</div>
                                 </div>
                             </div>
+                            <!--
                             <div class="item">
                                 <div class="content">
                                     <div class="ui middle three column grid m-padded-tb-small">
@@ -108,6 +109,7 @@
                                     <div class="m-padded-tb-small">在公司中担任测试开发岗，完成其文档和相关测试代码的编写，</div>
                                 </div>
                             </div>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -121,18 +123,14 @@
                     <p class="m-text">热爱编程，喜欢折腾，正在探索高效学习编程技术的方法...</p>
                 </div>
                 <div class="ui attached segment">
-                    <div class="ui orange basic left pointing label m-margin-tb-tiny">编程</div>
-                    <div class="ui orange basic left pointing label m-margin-tb-tiny">电影</div>
-                    <div class="ui orange basic left pointing label m-margin-tb-tiny">思考</div>
-                    <div class="ui orange basic left pointing label m-margin-tb-tiny">拍照</div>
-                    <div class="ui orange basic left pointing label m-margin-tb-tiny">运动</div>
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny"
+                         th:each="tag : ${tags}" th:text="${tag.name}">Java
+                    </div>
                 </div>
                 <div class="ui attached segment">
-                    <div class="ui blue basic left pointing label m-margin-tb-tiny">Java</div>
-                    <div class="ui blue basic left pointing label m-margin-tb-tiny">C</div>
-                    <div class="ui blue basic left pointing label m-margin-tb-tiny">HTML</div>
-                    <div class="ui blue basic left pointing label m-margin-tb-tiny">MYSQL</div>
-                    <div class="ui blue basic left pointing label m-margin-tb-tiny">...</div>
+                    <div class="ui blue basic left pointing label m-margin-tb-tiny"
+                         th:each="type : ${types}" th:text="${type.name}">Java
+                    </div>
                 </div>
                 <div class="ui bottom attached segment">
                     <a href="https://github.com/CSerxzm" target="_Blank" class="ui circular icon button"><i

@@ -12,8 +12,6 @@ public class Blog implements Serializable {
 
     private String description;
 
-    private String firstPicture;
-
     private String flag;
 
     private Boolean appreciation;
@@ -61,14 +59,6 @@ public class Blog implements Serializable {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
-    }
-
-    public String getFirstPicture() {
-        return firstPicture;
-    }
-
-    public void setFirstPicture(String firstPicture) {
-        this.firstPicture = firstPicture == null ? null : firstPicture.trim();
     }
 
     public String getFlag() {
@@ -182,7 +172,6 @@ public class Blog implements Serializable {
                 ", title='" + title + '\'' +
                 ", user=" + user +
                 ", description='" + description + '\'' +
-                ", firstPicture='" + firstPicture + '\'' +
                 ", flag='" + flag + '\'' +
                 ", appreciation=" + appreciation +
                 ", commentabled=" + commentabled +

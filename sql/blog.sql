@@ -1,75 +1,111 @@
-drop database if exists blog;
-create database blog default character set utf8 collate utf8_general_ci;
-use  blog;
+/*
+Navicat MySQL Data Transfer
 
-drop table if exists t_tag;
-create table t_tag(
-  id int(11) primary key not null auto_increment,
-  name varchar(255) not null comment "标签"
-);
+Source Server         : localhost
+Source Server Version : 50721
+Source Host           : localhost:3306
+Source Database       : blog
 
-insert into t_tag(id,name) values(1,'mysql'),(2,'spring'),(3,'mybatis'),(4,'redis'),(5,'zookeeper');
+Target Server Type    : MYSQL
+Target Server Version : 50721
+File Encoding         : 65001
 
-drop table if exists t_type;
-create table t_type(
-  id int(11) primary key not null auto_increment,
-  name varchar(255) not null comment "分类"
-);
-insert into t_type(id,name) values(1,'java'),(2,'c'),(3,'go'),(4,'sql');
+Date: 2021-04-08 12:44:48
+*/
 
-drop table if exists t_user;
-create table t_user(
-  id int(11) primary key not null auto_increment,
-  username varchar(255) default null,
-  password varchar(255) default null comment "密码",
-  nickname varchar(255) default null comment "昵称",
-  avatar varchar(255) default null comment "头像",
-  create_time datetime default null comment "注册时间",
-  email varchar(255) default null comment "邮箱",
-  usertype int(11) default null comment "类型,admin"
-);
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists t_blog;
-create table t_blog(
-  id int(11) primary key not null auto_increment,
-  title varchar(255) default null comment "标题",
-  user_id int(11) default null comment "发布者id",
-  content longtext comment "内容",
-  description varchar(255) default null comment "描述",
-  first_picture varchar(255) default null comment "首图",
-  flag varchar(255) default null comment "原创，转载，翻译",
-  appreciation bit(1) default null comment "赞赏",
-  commentabled bit(1) default null  comment "评论",
-  recommend bit(1) default null  comment "推荐",
-  share_statement bit(1) default null  comment "转载声明",
-  published bit(1) default null  comment "发布/保存",
-  create_time datetime default null comment "创建时间",
-  update_time datetime default null comment "更新时间",
-  views int(11) default null  comment "浏览量",
-  type_id int(11) default null comment "类型id",
-  foreign key(user_id) references t_user(id) on delete cascade on update cascade,
-  foreign key(type_id) references t_type(id) on delete cascade on update cascade
-);
+-- ----------------------------
+-- Table structure for t_blog
+-- ----------------------------
+DROP TABLE IF EXISTS `t_blog`;
+CREATE TABLE `t_blog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `user_id` int(11) DEFAULT NULL COMMENT '发布者id',
+  `content` longtext COMMENT '内容',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `flag` varchar(255) DEFAULT NULL COMMENT '原创，转载，翻译',
+  `appreciation` bit(1) DEFAULT NULL COMMENT '赞赏',
+  `commentabled` bit(1) DEFAULT NULL COMMENT '评论',
+  `recommend` bit(1) DEFAULT NULL COMMENT '推荐',
+  `share_statement` bit(1) DEFAULT NULL COMMENT '转载声明',
+  `published` bit(1) DEFAULT NULL COMMENT '发布/保存',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `views` int(11) DEFAULT NULL COMMENT '浏览量',
+  `type_id` int(11) DEFAULT NULL COMMENT '类型id',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `type_id` (`type_id`),
+  CONSTRAINT `t_blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_blog_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `t_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
-/*一个博客有多个标签*/
-drop table if exists t_blog_tag;
-create table t_blog_tag(
-  blog_id int(11) not null,
-  tag_id int(11) not null,
-  primary key (blog_id,tag_id),
-  foreign key(blog_id) references t_blog(id) on delete cascade on update cascade,
-  foreign key(tag_id) references t_tag(id) on delete cascade on update cascade
-);
+-- ----------------------------
+-- Table structure for t_blog_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `t_blog_tag`;
+CREATE TABLE `t_blog_tag` (
+  `blog_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`blog_id`,`tag_id`),
+  KEY `tag_id` (`tag_id`),
+  CONSTRAINT `t_blog_tag_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `t_blog` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_blog_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `t_tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-drop table if exists t_comment;
-create table t_comment(
-  id int(11) primary key not null auto_increment,
-  admin_comment bit(1) default null comment "是否是博主",
-  avatar varchar(255) default null comment "头像",
-  content varchar(255) default null comment "评论内容",
-  create_time datetime default null comment "评论时间",
-  email varchar(255) default null comment "评论邮箱",
-  nickname varchar(255) default null comment "评论昵称",
-  blog_id int(11) default null comment "blog的id",
-  foreign key(blog_id) references t_blog(id) on delete cascade on update cascade
-);
+-- ----------------------------
+-- Table structure for t_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment`;
+CREATE TABLE `t_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_comment` bit(1) DEFAULT NULL COMMENT '是否是博主',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
+  `content` varchar(255) DEFAULT NULL COMMENT '评论内容',
+  `create_time` datetime DEFAULT NULL COMMENT '评论时间',
+  `email` varchar(255) DEFAULT NULL COMMENT '评论邮箱',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '评论昵称',
+  `blog_id` int(11) DEFAULT NULL COMMENT 'blog的id',
+  PRIMARY KEY (`id`),
+  KEY `blog_id` (`blog_id`),
+  CONSTRAINT `t_comment_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `t_blog` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for t_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `t_tag`;
+CREATE TABLE `t_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '标签',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for t_type
+-- ----------------------------
+DROP TABLE IF EXISTS `t_type`;
+CREATE TABLE `t_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '分类',
+  `picture` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for t_user
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL COMMENT '密码',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
+  `create_time` datetime DEFAULT NULL COMMENT '注册时间',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `usertype` int(11) DEFAULT NULL COMMENT '类型,admin',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

@@ -1,5 +1,6 @@
 package com.xzm.blog.service;
 
+import com.xzm.blog.NotFoundException;
 import com.xzm.blog.bean.Blog;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface BlogService {
 
     Blog selectBlog(Integer id);
 
-    Blog selectAndConvert(Integer id);
+    Blog selectAndConvert(Integer id) throws NotFoundException;
 
     List<Blog> selectBlog();
 
@@ -27,7 +28,7 @@ public interface BlogService {
 
     int saveBlog(Blog blog);
 
-    int updateBlog(Integer id, Blog blog);
+    int updateBlog(Integer id, Blog blog) throws NotFoundException;
 
     int deleteBlog(Integer id);
 
@@ -35,7 +36,7 @@ public interface BlogService {
 
     List<Blog> selectBlog(String ids);
 
-    List<Integer> TagIdstoList(String tagIds);
+    List<Integer> tagIdstoList(String tagIds);
 
     List<Blog> selectByTitlelike(String title);
 

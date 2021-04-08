@@ -27,7 +27,6 @@ public class TypeServiceImpl implements TypeService {
         return typeMapper.insert(type);
     }
 
-    @Cacheable(value = "type", key = "#id")
     @Override
     public Type selectType(Integer id) {
         return typeMapper.selectByPrimaryKey(id);

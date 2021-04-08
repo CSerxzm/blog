@@ -34,12 +34,12 @@ public class BlogServiceImpl implements BlogService {
     //重点这里，缓存处理，减少markdown语言向html的转换
     @Transactional
     @Override
-    public Blog selectAndConvert(Integer id) {
+    public Blog selectAndConvert(Integer id){
         Blog blog=null;
         if (RedisUtils.isEmpty(BlogConstant.ONEBLOG + id)) {
             blog = blogMapper.selectByPrimaryKey(id);
             if (blog == null) {
-                throw new NotFoundException("该blog不存在");
+                throw new NotFoundException("该blog不存在,请确认后访问!");
             }
             blog.setContent(MarkdownUtils.markdownToHtmlExtensions(blog.getContent()));
             blog.setViews(blog.getViews()+1);
@@ -125,12 +125,13 @@ public class BlogServiceImpl implements BlogService {
         }
 
         blogMapper.insert(blog);
-        int b = tagMapper.saveBlogAndTag(blog.getId(), TagIdstoList(blog.getTagIds()));
+        int b = tagMapper.saveBlogAndTag(blog.getId(), tagIdstoList(blog.getTagIds()));
         return b;
     }
 
     // 1,2,3  -----> [1,2,3]
-    public List<Integer> TagIdstoList(String tagIds) {
+    @Override
+    public List<Integer> tagIdstoList(String tagIds) {
         List<Integer> res = new ArrayList<>();
         String[] tagid = tagIds.split(",");
         for (int i = 0; i < tagid.length; i++) {
@@ -141,7 +142,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public int updateBlog(Integer id, Blog blog) {
+    public int updateBlog(Integer id, Blog blog){
         Blog b = blogMapper.selectByPrimaryKey(id);
         if (b == null) {
             throw new NotFoundException("该blog不存在");
@@ -150,7 +151,7 @@ public class BlogServiceImpl implements BlogService {
 
         //对标签进行修改
         tagMapper.deleteTagByBlogId(blog.getId());
-        tagMapper.saveBlogAndTag(blog.getId(), TagIdstoList(blog.getTagIds()));
+        tagMapper.saveBlogAndTag(blog.getId(), tagIdstoList(blog.getTagIds()));
 
         return blogMapper.updateByPrimaryKeySelective(blog);
     }
@@ -180,6 +181,7 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.selectByTitlelike(title);
     }
 
+    @Override
     public List<Blog> selectByTitleTypeandRecommend(String title, Integer type_id, Boolean recommend) {
         Map<String, Object> query = new HashMap();
         query.put("title", title);

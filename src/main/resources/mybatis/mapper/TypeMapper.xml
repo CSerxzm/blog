@@ -5,9 +5,10 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="blog_num" property="blogNum"/>
+        <result column="picture" jdbcType="VARCHAR" property="picture"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, name
+        id, name, picture
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -20,8 +21,8 @@
         where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.xzm.blog.bean.Type">
-        insert into t_type (id, name)
-        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+        insert into t_type (id, name, picture)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{picture,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.xzm.blog.bean.Type">
         insert into t_type
@@ -32,6 +33,9 @@
             <if test="name != null">
                 name,
             </if>
+            <if test="picture != null">
+                picture,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -39,6 +43,9 @@
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                #{picture,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -48,12 +55,15 @@
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>
+            <if test="picture != null">
+                name = #{picture,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.xzm.blog.bean.Type">
         update t_type
-        set name = #{name,jdbcType=VARCHAR}
+        set name = #{name,jdbcType=VARCHAR},picture = #{picture,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <!--List<Type> selectAll();-->

@@ -4,7 +4,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404</title>
+    <title>错误</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
     <link rel="shortcut icon" href="../static/images/logo.png"/>
@@ -16,6 +16,7 @@
 
 </nav>
 
+
 <br>
 <br>
 <br>
@@ -23,8 +24,7 @@
 <div class="m-container-small m-padded-tb-massive">
     <div class="ui error message m-padded-tb-huge">
         <div class="ui contianer">
-            <h2>404</h2>
-            <p>对不起，你访问的资源不存在</p>
+            <h2>错误,您访问的资源不存在!</h2>
         </div>
     </div>
 </div>
@@ -32,8 +32,6 @@
 <br>
 <br>
 <br>
-
-
 <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
@@ -71,6 +69,7 @@
     </div>
 
 </footer>
+
 </body>
 
 </html>

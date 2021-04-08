@@ -18,7 +18,7 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     //新添加
-    List<Object> selectByBlogId(Integer id);
+    List<Comment> selectByBlogId(Integer id);
 
     List<Comment> selectAll();
 }

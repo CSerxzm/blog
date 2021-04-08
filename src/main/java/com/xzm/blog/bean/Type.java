@@ -9,6 +9,8 @@ public class Type implements Serializable {
 
     private Integer blogNum;
 
+    private String picture;
+
     public Type() {
     }
 
@@ -39,5 +41,13 @@ public class Type implements Serializable {
 
     public void setBlogNum(Integer blogNum) {
         this.blogNum = blogNum;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

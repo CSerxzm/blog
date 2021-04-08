@@ -33,13 +33,11 @@ public class TagServiceImpl implements TagService {
         return tagMapper.insert(tag);
     }
 
-    @Cacheable(value = "tag", key = "#id")
     @Override
     public Tag selectTag(Integer id) {
         return tagMapper.selectByPrimaryKey(id);
     }
 
-    @Cacheable(value = "tag", key = "#name")
     @Override
     public Tag selectTagByName(String name) {
         return tagMapper.selectTagByName(name);
