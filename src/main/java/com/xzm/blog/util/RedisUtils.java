@@ -82,7 +82,7 @@ public class RedisUtils {
      * @param value 值
      */
     public static void set(String key,Object value) {
-        redisTemplate.opsForValue().set(key, value, 1, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key, value, 60, TimeUnit.MINUTES);
     }
 
     // 存储普通对象操作
