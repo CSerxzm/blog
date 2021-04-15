@@ -26,7 +26,7 @@
 </div>
 
 <!--中间内容-->
-<div class="m-container-small m-padded-tb-big">
+<div class="m-container-small m-padded-tb-big" style="min-height:750px !important;">
     <div class="ui container">
         <form action="#" method="post" th:object="${type}"
               th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})} " class="ui form">
