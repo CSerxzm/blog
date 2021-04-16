@@ -4,7 +4,7 @@ import com.xzm.blog.bean.Comment;
 import com.xzm.blog.bean.User;
 import com.xzm.blog.service.EmailService;
 import com.xzm.blog.service.CommentService;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

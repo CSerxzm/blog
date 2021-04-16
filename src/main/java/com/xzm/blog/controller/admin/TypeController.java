@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xzm.blog.bean.Type;
 import com.xzm.blog.service.TypeService;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

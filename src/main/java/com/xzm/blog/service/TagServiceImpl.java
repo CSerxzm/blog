@@ -6,15 +6,12 @@ import com.xzm.blog.bean.Blog;
 import com.xzm.blog.bean.Tag;
 import com.xzm.blog.dao.BlogMapper;
 import com.xzm.blog.dao.TagMapper;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import com.xzm.blog.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

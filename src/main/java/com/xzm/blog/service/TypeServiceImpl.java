@@ -5,14 +5,11 @@ import com.xzm.blog.NotFoundException;
 import com.xzm.blog.bean.Type;
 import com.xzm.blog.dao.TypeMapper;
 import com.xzm.blog.util.RedisUtils;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service

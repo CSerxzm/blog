@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.xzm.blog.bean.Comment;
 import com.xzm.blog.util.RedisUtils;
 import com.xzm.blog.dao.CommentMapper;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -3,7 +3,7 @@ package com.xzm.blog.controller.admin;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xzm.blog.service.CommentService;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

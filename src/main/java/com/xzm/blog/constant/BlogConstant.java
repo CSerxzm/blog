@@ -1,4 +1,4 @@
-package com.xzm.blog.util;
+package com.xzm.blog.constant;
 
 public class BlogConstant {
 
@@ -36,5 +36,7 @@ public class BlogConstant {
     public static final String MESSAGE = "message";
 
     public static final String USER = "user";
+
+    public static final String BLOGANDIMAP="blogAndIP:";
 
 }

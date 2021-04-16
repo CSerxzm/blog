@@ -7,10 +7,8 @@ import com.xzm.blog.dao.BlogMapper;
 import com.xzm.blog.dao.TagMapper;
 import com.xzm.blog.util.MarkdownUtils;
 import com.xzm.blog.util.RedisUtils;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,25 +33,11 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public Blog selectAndConvert(Integer id){
-        Blog blog=null;
-        if (RedisUtils.isEmpty(BlogConstant.ONEBLOG + id)) {
-            blog = blogMapper.selectByPrimaryKey(id);
-            if (blog == null) {
-                throw new NotFoundException("该blog不存在,请确认后访问!");
-            }
-            blog.setContent(MarkdownUtils.markdownToHtmlExtensions(blog.getContent()));
-            blog.setViews(blog.getViews()+1);
-            //存储内容
-            RedisUtils.hPut(BlogConstant.ONEBLOG + id,"blog",JSON.toJSONString(blog));
-            //存储浏览量
-            RedisUtils.hPut(BlogConstant.ONEBLOG + id,"views",blog.getViews().toString());
-        } else {
-            //存在该blog
-            RedisUtils.hIncrement(BlogConstant.ONEBLOG + id,"views");
-            blog = JSON.parseObject(RedisUtils.hGet(BlogConstant.ONEBLOG + id,"blog").toString(),Blog.class);
-            String views = (String)RedisUtils.hGet(BlogConstant.ONEBLOG + id,"views").toString();
-            blog.setViews(Integer.valueOf(views));
+        Blog blog = blogMapper.selectByPrimaryKey(id);
+        if (blog == null) {
+            throw new NotFoundException("该blog不存在,请确认后访问!");
         }
+        blog.setContent(MarkdownUtils.markdownToHtmlExtensions(blog.getContent()));
         return blog;
     }
 
@@ -142,16 +126,20 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public int updateBlog(Integer id, Blog blog){
+    public int updateBlog(Blog blog){
+        Integer id  = blog.getId();
         Blog b = blogMapper.selectByPrimaryKey(id);
         if (b == null) {
             throw new NotFoundException("该blog不存在");
         }
         blog.setUpdateTime(new Date());
-
         //对标签进行修改
-        tagMapper.deleteTagByBlogId(blog.getId());
-        tagMapper.saveBlogAndTag(blog.getId(), tagIdstoList(blog.getTagIds()));
+        tagMapper.deleteTagByBlogId(id);
+        tagMapper.saveBlogAndTag(id, tagIdstoList(blog.getTagIds()));
+        //清除原有缓存
+        String views = ((String) RedisUtils.hGet(BlogConstant.ONEBLOG + id, "views"));
+        blogMapper.saveBlogViews(Integer.valueOf(id),Integer.valueOf(views));
+        RedisUtils.del(BlogConstant.ONEBLOG + id);
 
         return blogMapper.updateByPrimaryKeySelective(blog);
     }

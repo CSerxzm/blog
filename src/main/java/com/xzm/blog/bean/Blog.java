@@ -182,7 +182,6 @@ public class Blog implements Serializable {
                 ", updateTime=" + updateTime +
                 ", views=" + views +
                 ", type=" + type +
-                ", content='" + content + '\'' +
                 ", tagIds='" + tagIds + '\'' +
                 '}';
     }

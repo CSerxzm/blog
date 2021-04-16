@@ -28,7 +28,7 @@ public interface BlogService {
 
     int saveBlog(Blog blog);
 
-    int updateBlog(Integer id, Blog blog) throws NotFoundException;
+    int updateBlog(Blog blog) throws NotFoundException;
 
     int deleteBlog(Integer id);
 

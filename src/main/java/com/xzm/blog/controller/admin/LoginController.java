@@ -2,7 +2,7 @@ package com.xzm.blog.controller.admin;
 
 import com.xzm.blog.bean.User;
 import com.xzm.blog.service.UserService;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

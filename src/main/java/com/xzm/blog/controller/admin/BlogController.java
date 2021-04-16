@@ -9,7 +9,7 @@ import com.xzm.blog.bean.User;
 import com.xzm.blog.service.BlogService;
 import com.xzm.blog.service.TagService;
 import com.xzm.blog.service.TypeService;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,7 +96,7 @@ public class BlogController {
             blog.setUser(user);
             b = blogService.saveBlog(blog);
         } else {
-            b = blogService.updateBlog(blog.getId(), blog);
+            b = blogService.updateBlog(blog);
         }
         if (b == 0) {
             attributes.addFlashAttribute(BlogConstant.MESSAGE, "操作失败");

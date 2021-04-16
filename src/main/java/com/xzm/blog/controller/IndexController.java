@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.xzm.blog.service.BlogService;
 import com.xzm.blog.service.TagService;
 import com.xzm.blog.service.TypeService;
-import com.xzm.blog.util.BlogConstant;
+import com.xzm.blog.constant.BlogConstant;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,6 @@ public class IndexController {
         Page page = PageHelper.startPage(pageIndex, BlogConstant.PAGESIZE);
         model.addAttribute(BlogConstant.BLOGS, blogService.selectBlog());
         model.addAttribute(BlogConstant.PAGE, page);
-        page = null;
         model.addAttribute(BlogConstant.TYPES, typeService.selectTypeTop(BlogConstant.SIZETOP));
         model.addAttribute(BlogConstant.TAGS, tagService.selectTagTop(BlogConstant.SIZETOP));
         model.addAttribute(BlogConstant.RECOMMENDBLOGS, blogService.selectRecommendBlogTop(BlogConstant.BLOGTOP));
