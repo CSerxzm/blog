@@ -17,7 +17,7 @@ public class BlogApplicationTests {
 
     @Test
     public void test02() {
-        String password = MD5Utils.code("123456");
+        String password = MD5Utils.code("password");
         System.out.println(password);
 		/*
 		5f4dcc3b5aa765d61d8327deb882cf99
@@ -27,7 +27,7 @@ public class BlogApplicationTests {
     @Test
     public void test() {
         System.out.println("username:" + encryptor.encrypt("root"));
-        System.out.println("password:" + encryptor.encrypt("egova"));
+        System.out.println("password:" + encryptor.encrypt("password"));
         System.out.println("emailpassword:" + encryptor.encrypt("123456"));
     }
 

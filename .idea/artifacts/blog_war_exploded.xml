@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="blog:war exploded">
-    <output-path>$PROJECT_DIR$/target/blog-0.0.1-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/target/blog</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -38,7 +38,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.13.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.13.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.13.RELEASE" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.44" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.21" />
           <element id="library" level="project" name="Maven: com.atlassian.commonmark:commonmark:0.10.0" />
           <element id="library" level="project" name="Maven: com.atlassian.commonmark:commonmark-ext-heading-anchor:0.10.0" />
           <element id="library" level="project" name="Maven: com.atlassian.commonmark:commonmark-ext-gfm-tables:0.10.0" />
@@ -83,7 +83,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/blog-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/blog/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="blog/web/Web" />
     </root>
