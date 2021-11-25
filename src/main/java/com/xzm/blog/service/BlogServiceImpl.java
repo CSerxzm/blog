@@ -29,7 +29,7 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.selectByPrimaryKey(id);
     }
 
-    //重点这里，缓存处理，减少markdown语言向html的转换
+    //缓存处理，减少markdown语言向html的转换，实现部分用切面来实现 BlogAspect
     @Transactional
     @Override
     public Blog selectAndConvert(Integer id){
@@ -85,7 +85,6 @@ public class BlogServiceImpl implements BlogService {
     public Map<String, List<Blog>> archiveBlog() {
         List<String> years = blogMapper.selectGroupYear();
         Map<String, List<Blog>> map = new LinkedHashMap<>();
-        Map<String, Object> query = new HashMap();
         for (String year : years) {
             map.put(year, blogMapper.selectByYear(year));
         }

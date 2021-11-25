@@ -53,7 +53,7 @@ public class BlogAspect {
         //校验IP
         String key = BlogConstant.BLOGANDIMAP + id +":"+ ip;
         if(blog!=null && RedisUtils.isEmpty(key)){
-            //不存在,则放入redis，一个xia时过期
+            //不存在,则放入redis，一个小时过期
             RedisUtils.set(key,"1");
             blog.setViews(blog.getViews()+1);
             RedisUtils.hIncrement(BlogConstant.ONEBLOG + id,"views");
