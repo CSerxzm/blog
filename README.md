@@ -83,17 +83,31 @@ jasypt:
     password: qwertyuiopasdfgh
 ```
 ## 功能
-* blog的管理，发布，如草稿
+* blog的管理，发布，如草稿的报错
+* blog的赞赏，首图，以及top，hot的设置
 * 评论的管理，以及评论发送到邮件
-* blog的赞赏（扫描支付宝，微信转账，喜欢的可以转个三元五元，支持服务器的运行）   
-**在线乞讨(支付宝扫码哦)**
+* 个人简历的展示，可根据模板自定义修改
+* 对于浏览的的统计，自定义注解，实现IP的过滤，避免重复统计
+## 运行截图
+![1.png](./images/1.png)
+![2.png](./images/2.png)
+![3.png](./images/3.png)
+![4.png](./images/4.png)
+![5.png](./images/5.png)
+![6.png](./images/6.png)
+![7.png](./images/7.png)
+![8.png](./images/8.png)
 
-<img src="./src/main/resources/static/images/alipay.png" width = "200" alt="" align=center />
-
-* 文章的分类浏览，分标签，归档。
 ## 演示地址
 [没有代码的程序](https://fuyuanplant.cn)
+
+## 在线乞讨
+
+<img src="./src/main/resources/static/images/alipay.png" width = "200" alt="" align=center />
 
 **什么？上面没有支付宝，我信了，那么微信喃？**
 
 <img src="./src/main/resources/static/images/wepay.png" width = "200" alt="" align=center />
+
+## 最后的话
+谢谢！
